@@ -7,7 +7,7 @@ We use GitHub Desktop as our [source control](https://en.wikipedia.org/wiki/Sour
 * Download and install the GitHub Desktop software from [here](https://desktop.github.com).
 * Start GitHub Desktop, click *File->Clone repository...*
  ![image name](/images/GitHubDesktopFileClone.jpg)
-* Select the URL tab and enter the repository URL: https://github.com/trc492/FrcTemplate.git
+* Select the URL tab and enter the repository URL: *https://github.com/trc492/FrcTemplate.git*
 * Enter the local path to clone the repository into. Please note that Windows may suggest cloning into your OneDrive folder. Unless you pay for huge storage on OneDrive, we recommend you change it to your local hard drive. For example:
 ```
  C:\Users\<You>\Document\GitHub
