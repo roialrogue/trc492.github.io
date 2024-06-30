@@ -14,6 +14,7 @@ We use GitHub Desktop as our [source control](https://en.wikipedia.org/wiki/Sour
 ```
  ![image name](/images/GitHubDesktopCloneRepoFrc.jpg)
 * Click the Clone button.
+
 Congratulations! You have now successfully cloned the FrcTemplate repository.
 
 ## FRC Software Components
