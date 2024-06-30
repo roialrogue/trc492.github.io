@@ -3,8 +3,8 @@ This tutorial focuses on our *Titan Robotics Framework* (TRC Library). The targe
 
 ## Programming Software Installation
 Before you can start coding, you need to install the required software on your laptop. Please take some time to do this at home. Software installation is time consuming and require downloading gigabytes of data from the Internet. Follow the instructions below for the software you need.
-* [FRC Programming Software Installation](/pages/FrcProgrammingSoftwareInstallation.md)
-* [FTC Programming Software Installation](/pages/FtcProgrammingSoftwareInstallation.md)
+* [FRC Programming Software Installation](https://trc492.github.io/pages/FrcProgrammingSoftwareInstallation.html)
+* [FTC Programming Software Installation](https://trc492.github.io/pages/FtcProgrammingSoftwareInstallation.html)
 
 ## TeleOp Driving Your Robot Right Out-Of-The-Box
 At this point, you should have installed all necessary software for developing robot code and also clone the robot template code from the GitHub repo. Since the template already contains basic code for three different kinds of robot base (Differential Drive, Mecanum Drive and Swerve Drive), it takes very few modifications to make it work with any of the three types of robots.
