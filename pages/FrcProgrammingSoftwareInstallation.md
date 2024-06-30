@@ -5,7 +5,7 @@ In this section, we will talk about installing Source Control Software as well a
 We use GitHub Desktop as our [source control](https://en.wikipedia.org/wiki/Source_Code_Control_System) software that stores our source code on the Internet at GitHub.com (GitHub repositories). Follow these instructions to set up and install software to access our GitHub repositories.
 * Create a GitHub account if you do not already have one [(link here)](https://GitHub.com).
 * Download and install the GitHub Desktop software from [here](https://desktop.github.com).
-* Start GitHub Desktop, click File->Clone repository...
+* Start GitHub Desktop, click *File->Clone repository...*
  ![image name](/images/GitHubDesktopFileClone.jpg)
 * Select the URL tab and enter the repository URL: https://github.com/trc492/FrcTemplate.git
 * Enter the local path to clone the repository into. Please note that Windows may suggest cloning into your OneDrive folder. Unless you pay for huge storage on OneDrive, we recommend you change it to your local hard drive. For example:
