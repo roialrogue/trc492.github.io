@@ -106,7 +106,7 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
         }
    }
 ```
-* The Arm class above is referencing a lot of constants from RobotParams.java. We need to define all those variables. At the end of the RobotParam.java class, add the Arm subsystem section like below:
+* The Arm class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Arm subsystem section like below:
 ```
     //
     // Arm subsystem.
