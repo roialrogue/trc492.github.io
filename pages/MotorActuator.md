@@ -11,16 +11,20 @@ Motor Actuator supports different configurations of subsystems. Even though they
 
 ## Subsystem Parameters
 * **setMotorInverted**: Sets the motor direction so that positive power is to move the mechanism forward/upward.
-* **setFollowerMotor**: Sets the follower motor if there is one and also sets its direction (i.e. two motors driving the mechanism).
-* **setLowerLimitSwitch, setUpperLimitSwitch**: Sets the lower/upper switches if there is one and also sets its polarity (normal open/close).
-* **setExternalEncoder**: Sets the external encoder if there is one and also sets its polarity as well as whether it is an absolute encoder.
-* **setVoltageCompensationEnabled**: Enables/disables voltage compensation for the motor to be independent of battery voltage variations.
-* **setPositionScaleAndOffset**: Sets the position scale and offset to scale the position value to real world units.
-* **setPositionPresets**: Sets up an array of preset positions.
+* **setFollowerMotor**: Specifies if you have a follower motor (2-motor driven mechanism) and also sets its direction so that it agrees with the primary motor.
+* **setLowerLimitSwitch, setUpperLimitSwitch**: Specifies if you have lower and/or upper limit switches. Depending on if the limit switches are Normal-Open or Normal-Close, set "inverted" appropriately so that pressing it will return a true value (inverted set to false for Normal-Close and true for Normal-Open).
+* **setExternalEncoder**: Specifies if you have an external encoder and also sets its direction as well as whether it is an absolute encoder.
+* **setVoltageCompensationEnabled**: Enables/disables voltage compensation to compensate for battery voltage variations.
+* **setPositionScaleAndOffset**: Sets the position scale and offset to scale the position value to real world units. For example, for gravity compensation to work correctly, the arm must report its angle position in degrees relative to vertical which is 0-degree (i.e. arm angle is 90-degree at horizontal). You must determine the proper scaling factor by applying the following equation:
+
+  *ARM_DEG_PER_COUNT = 360.0 / ENCODER_PPR / GEAR_RATIO;*
+
+  The resting position of an arm is typically not vertical. Therefore, you must specify the resting position angle as the ARM_OFFSET. To determine the resting position, use a leveling app on your smart phone (download one from your app store if you don't have it) resting up against the arm to measure its angle relative to vertical.
+* **setPositionPresets**: Sets up an array of preset positions. This is optional. Only if you wish to use two gamepad buttons (e.g. DPad Up/Down) to command the mechanism to go up/down to the next preset position. Note that the preset position array must be sorted in ascending order.
 
 ## Subsystem Methods
-* **Constructor**: Creates an instance of the mechanism and specifies whether it is a DcMotor or a Continuous Rotation Servo.
-* **getActuator**: Returns the created **TrcMotor** created for the mechanism.
+* **Constructor**: Creates an instance of the mechanism and specifies if it is a DcMotor or a Continuous Rotation Servo.
+* **getActuator**: Returns the **TrcMotor** created for the mechanism.
 
 The following are the most commonly called methods provided by **TrcMotor** which is the object returned by the *getActuator* method:
 * **setStallProtection**:
@@ -71,27 +75,11 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
         public Arm()
         {
             FtcMotorActuator.Params armParams = new FtcMotorActuator.Params()
-                // Set motor direction so that positive power is to swing the arm upward.
                 .setMotorInverted(RobotParams.ARM_MOTOR_INVERTED)
-                // Specify whether you have lower and/or upper limit switches.
-                // Depending on if the limit switches are Normal-Open or Normal-Close, set INVERTED appropriately
-                // so that pressing it will return a true value (false for Normal-Close and true for Normal-Open).
                 .setLowerLimitSwitch(RobotParams.ARM_HAS_LOWER_LIMIT_SWITCH, RobotParams.ARM_LOWER_LIMIT_INVERTED)
                 .setUpperLimitSwitch(RobotParams.ARM_HAS_UPPER_LIMIT_SWITCH, RobotParams.ARM_UPPER_LIMIT_INVERTED)
-                // Enabling voltage compensation will compensate for different battery level due to use.
                 .setVoltageCompensationEnabled(RobotParams.ARM_VOLTAGE_COMP_ENABLED)
-                // For gravity compensation to work correctly, the arm must report its angle position in degrees relative
-                // to vertical which is 0-degree (i.e. arm angle is 90-degree at horizontal). You must determine the
-                // proper scaling factor by applying the following equation:
-                //   ARM_DEG_PER_COUNT = 360.0 / ENCODER_PPR / GEAR_RATIO;
-                // The resting position of an arm is typically not vertical. Therefore, you must specify the rest position
-                // angle as the ARM_OFFSET. To determine the rest position, use a leveling app on your smart phone (download
-                // one from your app store if you don't have it) resting up against the arm to measure its angle relative to
-                // vertical.
                 .setPositionScaleAndOffset(RobotParams.ARM_DEG_PER_COUNT, RobotParams.ARM_OFFSET)
-                // Setting position presets is optional. Only if you wish to use two gamepad buttons (e.g. DPad Up/Down) to
-                // command the arm to go up/down to the next preset position. Note that the preset position array must be
-                // sorted in ascending order.
                 .setPositionPresets(RobotParams.ARM_PRESET_TOLERANCE, RobotParams.ARM_PRESETS);
             armMotor = new FtcMotorActuator(RobotParams.HWNAME_ARM, true, armParams).getActuator();
             //
