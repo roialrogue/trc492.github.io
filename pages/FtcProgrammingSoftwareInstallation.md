@@ -3,7 +3,7 @@ In this section, we will talk about installing Source Control Software as well a
 
 ## Source Control Software
 We use GitHub Desktop as our [source control](https://en.wikipedia.org/wiki/Source_Code_Control_System) software that stores our source code on the Internet at GitHub.com (GitHub repositories). Follow these instructions to set up and install software to access our GitHub repositories.
-* Create a GitHub account if you do not already have one [link here](https://GitHub.com).
+* Create a GitHub account if you do not already have one ([link here](https://GitHub.com)).
 * Download and install the GitHub Desktop software from [here](https://desktop.github.com).
 * Start GitHub Desktop, click *File->Clone repository...*
  ![image name](/images/GitHubDesktopFileClone.jpg)
