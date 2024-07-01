@@ -19,47 +19,54 @@ Motor Actuator supports different configurations of subsystems. Even though they
 
   *ARM_DEG_PER_COUNT = 360.0 / ENCODER_PPR / GEAR_RATIO;*
 
-  The resting position of an arm is typically not vertical. Therefore, you must specify the resting position angle as the ARM_OFFSET. To determine the resting position, use a leveling app on your smart phone (download one from your app store if you don't have it) resting up against the arm to measure its angle relative to vertical.
+  The resting position of an arm is typically not vertical. Therefore, you must specify the resting position angle as the *ARM_OFFSET*. To determine the resting position, use a leveling app on your smart phone (download one from your app store if you don't have it) resting up against the arm to measure its angle relative to vertical.
 * **setPositionPresets**: Sets up an array of preset positions. This is optional. Only if you wish to use two gamepad buttons (e.g. DPad Up/Down) to command the mechanism to go up/down to the next preset position. Note that the preset position array must be sorted in ascending order.
 
 ## Subsystem Methods
-* **Constructor**: Creates an instance of the mechanism and specifies if it is a DcMotor or a Continuous Rotation Servo.
+* **Constructor**: Creates an instance of the mechanism and specifies if it is a DC Motor or a Continuous Rotation Servo.
 * **getActuator**: Returns the **TrcMotor** created for the mechanism.
 
 The following are the most commonly called methods provided by **TrcMotor** which is the object returned by the *getActuator* method:
-* **setStallProtection**:
-* **setStallDetectionEnabled**:
-* **isLowerLimitSwitchActive, isUpperLimitSwitchActive**:
-* **resetPosition**:
-* **setSoftwarePidEnabled**:
-* **cancel**:
-* **stop**:
-* **setPower**:
-* **getPower**:
-* **setVelocity**:
-* **getVelocity**:
-* **setPosition**:
-* **getPosition**:
-* **setPidPower**:
-* **setCurrent**:
-* **getCurrent**:
-* **setVelocityPidParameters**:
-* **setVelocityPidTolerance**:
-* **getVelocityOnTarget**:
-* **setVelocityPidPowerComp**:
-* **setPositionPidParameters**:
-* **setPositionPidTolerance**:
-* **getPositionOnTarget**:
-* **setPositionPidPowerComp**:
-* **setCurrentPidParameters**:
-* **setCurrentPidTolerance**:
-* **getCurrentOnTarget**:
-* **setCurrentPidPowerComp**:
-* **zeroCalibrate**:
-* **presetPositionUp**:
-* **presetPositionDown**:
-* **presetVelocityUp**:
-* **presetVelocityDown**:
+* **setStallProtection**: Sets stall protection. When stall protection is turned ON, it will monitor the motor movement for stalled condition. A motor is considered stalled if:
+  * power applied to the motor is above or equal to *stallMinPower*.
+  * motor has not moved or movement stayed within *stallTolerance* for at least *stallTimeout*.
+
+  Note: By definition, holding target position doing software PID control is stalling. If you decide to enable stall protection while holding target, please make sure to set a *stallMinPower* much greater than the power necessary to hold position against gravity. However, if you want to zero calibrate on motor stall (e.g. don't have lower limit switch), you want to make sure *calPower* is at least *stallMinPower*.
+* **setStallDetectionEnabled**: Enables/disables Stall Detection. This is independent and different from Stall Protection. You only need this if you want to zero calibrate the mechanism, but you don't have a lower limit switch. By enabling stall detection, the mechanism position will be reset when the motor is stalled during zero calibration.
+  * *stallDetectionDelay* specifies the amount of time to delay detecting stall condition in order to give time for the motor to start up.
+  * *stallDetectionTimeout* specifies the amount of time that the motor is not moving, or the movement is below *stallErrorRateThreshold* before declaring motor stalled.
+  * *stallErrorRateThreshold* specifies the amount of movement below which we considered the motor not moving.
+* **isLowerLimitSwitchActive, isUpperLimitSwitchActive**: Returns the state of the lower/upper limit switch.
+* **resetPosition**: Resets the motor position sensor if it has one, typically an encoder. If *hardware* is false, it will do a soft reset (i.e. set the current sensor reading as the zero position).
+* **setSoftwarePidEnabled**: Enables/disables Software PID Control. Some motor controllers support native close-loop control but some don't (e.g. Continuous Rotation Servo). Enabling Software PID Control will apply close-loop control using our software PID control algorithm.
+* **cancel**: Cancels a previous operation by resetting the state set by the previous operation. Note: cancel does not stop the motor and therefore it will still hold its position. If you want to stop the motor, call the *stop* method instead.
+* **stop**: Stops the motor regardless of the control mode and resets it to power control mode. This is different from setting the motor value to zero. In Velocity Control Mode, setting zero velocity will abruptly stop the motor that could be very stressful to the gear box. The *stop* method will gracefully spin down the motor instead of forcing it to stop abruptly.
+* **setPower**: Sets the motor power. If the motor is not in the correct control mode, it will stop the motor and set it to power control mode. Optionally, you can specify a delay before running the motor and a duration for which the motor will be turned off afterwards.
+* **getPower**: Returns the current motor power.
+* **setVelocity**: Sets the motor velocity. If the motor is not in the correct control mode, it will stop the motor and set it to velocity control mode. Optionally, you can specify a delay before running the motor and a duration for which the motor will be turned off afterwards.
+* **getVelocity**: Returns the current motor velocity in scaled units per second.
+* **setPosition**: Sets the motor position. If the motor is not in the correct control mode, it will stop the motor and set it to power control mode. Optionally, you can specify a power limit to limit the maximum power it will apply to the motor (i.e. slowing down the motor movement).
+* **getPosition**: Returns the current motor position in scaled units.
+* **setPidPower**: Sets the motor power with PID control. This is basically the same as *setPosition* but with dynamically changing *powerLimit*. The motor will be under position PID control and the power specifies the maximum limit of how fast the motor can go. The actual motor power is controlled by a PID controller with the target either set to *minPos* or *maxPos* depending on the direction of the motor. This is very useful in scenarios such as an elevator where you want to have the elevator controlled by a joystick but would like PID control to pay attention to the upper and lower limits and slow down when approaching those limits. The joystick value will specify the maximum limit of the elevator power. So if the joystick is only pushed half way, the elevator will only go half power even though it is far away from the target.
+* **setCurrent**: Sets the motor current. If the motor is not in the correct control mode, it will stop the motor and set it to current control mode. Optionally, you can specify a delay before running the motor and a duration for which the motor will be turned off afterwards. Note that not all motor controllers support close-loop control by current. If they don't, this will throw an *UnsupportedOperationException*.
+* **getCurrent**: Returns the motor current in amperes.
+* **setVelocityPidParameters**: Sets the PID parameters of the motor's velocity PID controller. Note that PID coefficients are different for software PID and controller built-in PID. If you enable/disable software PID, you need to set the appropriate PID coefficients accordingly.
+* **setVelocityPidTolerance**: Sets the velocity tolerance for PID control in scaled units per second.
+* **getVelocityOnTarget**: Checks if velocity PID control has reached target.
+* **setVelocityPidPowerComp**: Sets the power compensation callback of the motor's velocity PID controller.
+* **setPositionPidParameters**: Sets the PID parameters of the motor's position PID controller. Note that PID coefficients are different for software PID and controller built-in PID. If you enable/disable software PID, you need to set the appropriate PID coefficients accordingly.
+* **setPositionPidTolerance**: Sets the position tolerance for PID control in scaled units.
+* **getPositionOnTarget**: Checks if position PID control has reached target.
+* **setPositionPidPowerComp**: Sets the power compensation callback of the motor's position PID controller.
+* **setCurrentPidParameters**: Sets the PID parameters of the motor's current PID controller. Note that PID coefficients are different for software PID and controller built-in PID. If you enable/disable software PID, you need to set the appropriate PID coefficients accordingly.
+* **setCurrentPidTolerance**: Sets the current tolerance for PID control in amperes.
+* **getCurrentOnTarget**: Checks if current PID control has reached target.
+* **setCurrentPidPowerComp**: Sets the power compensation callback of the motor's current PID controller.
+* **zeroCalibrate**: Starts zero calibration mode by moving the motor with specified calibration power until a limit switch is hit or the motor is stalled.
+* **presetPositionUp**: Sets the motor to the next preset position up from the current position.
+* **presetPositionDown**: Sets the motor to the next preset position down from the current position.
+* **presetVelocityUp**: Sets the motor to the next preset velocity up or down from the current velocity.
+* **presetVelocityDown**: Sets the motor to the next preset velocity down from the current velocity.
 
 ## Example: Create an Arm Subsystem
 Since all these subsystems are derivatives of the Motor Actuator, we will just show the example of how an Arm subsystem for FTC is implemented. For FRC implementation, we will leave it for you as an exercise. It should be very similar. To create the arm subsystem, follow the steps below:
