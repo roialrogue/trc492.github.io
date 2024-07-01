@@ -68,7 +68,7 @@ The following are the most commonly called methods provided by **TrcMotor** whic
 * **presetVelocityUp**: Sets the motor to the next preset velocity up or down from the current velocity.
 * **presetVelocityDown**: Sets the motor to the next preset velocity down from the current velocity.
 
-## Example: Create an Arm Subsystem
+## Example: Create Arm Subsystem
 Since all these subsystems are derivatives of the Motor Actuator, we will just show the example of how an Arm subsystem for FTC is implemented. For FRC implementation, we will leave it for you as an exercise. It should be very similar. To create the arm subsystem, follow the steps below:
 * Create a Java class in the subsystems folder (e.g. Arm.java).
 ```
