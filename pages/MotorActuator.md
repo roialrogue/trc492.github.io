@@ -10,19 +10,19 @@ Motor Actuator supports different configurations of subsystems. Even though they
   * **Tilter**: This is the tilting mechanism that allows the end-effector to rotation vertically aiming up and down. It is basically the same as an arm.
 
 ## Subsystem Parameters
-* **setMotorInverted**:
-* **setFollowerMotor**:
-* **setLowerLimitSwitch, setUpperLimitSwitch**:
-* **setLowerLimitSwitch**:
-* **setVoltageCompensationEnabled**:
-* **setPositionScaleAndOffset**:
-* **setPositionPresets**:
+* **setMotorInverted**: Sets the motor direction so that positive power is to move the mechanism forward/upward.
+* **setFollowerMotor**: Sets the follower motor if there is one and also sets its direction (i.e. two motors driving the mechanism).
+* **setLowerLimitSwitch, setUpperLimitSwitch**: Sets the lower/upper switches if there is one and also sets its polarity (normal open/close).
+* **setExternalEncoder**: Sets the external encoder if there is one and also sets its polarity as well as whether it is an absolute encoder.
+* **setVoltageCompensationEnabled**: Enables/disables voltage compensation for the motor to be independent of battery voltage variations.
+* **setPositionScaleAndOffset**: Sets the position scale and offset to scale the position value to real world units.
+* **setPositionPresets**: Sets up an array of preset positions.
 
 ## Subsystem Methods
-* **Constructor**:
-* **getActuator**:
+* **Constructor**: Creates an instance of the mechanism and specifies whether it is a DcMotor or a Continuous Rotation Servo.
+* **getActuator**: Returns the created **TrcMotor** created for the mechanism.
 
-The following are the most commonly called methods provided by '''TrcMotor''' which is the object returned by the *getActuator* method:
+The following are the most commonly called methods provided by **TrcMotor** which is the object returned by the *getActuator* method:
 * **setStallProtection**:
 * **setStallDetectionEnabled**:
 * **isLowerLimitSwitchActive, isUpperLimitSwitchActive**:
