@@ -9,7 +9,55 @@ Motor Actuator supports different configurations of subsystems. Even though they
   * **Turret**: This is the panning mechanism that allows the end-effector to rotate around horizontally aiming at different directions.
   * **Tilter**: This is the tilting mechanism that allows the end-effector to rotation vertically aiming up and down. It is basically the same as an arm.
 
-## Create the Subsystem
+## Subsystem Parameters
+* **setMotorInverted**:
+* **setFollowerMotor**:
+* **setLowerLimitSwitch, setUpperLimitSwitch**:
+* **setLowerLimitSwitch**:
+* **setVoltageCompensationEnabled**:
+* **setPositionScaleAndOffset**:
+* **setPositionPresets**:
+
+## Subsystem Methods
+* **Constructor**:
+* **getActuator**:
+
+The following are the most commonly called methods provided by '''TrcMotor''' which is the object returned by the *getActuator* method:
+* **setStallProtection**:
+* **setStallDetectionEnabled**:
+* **isLowerLimitSwitchActive, isUpperLimitSwitchActive**:
+* **resetPosition**:
+* **setSoftwarePidEnabled**:
+* **cancel**:
+* **stop**:
+* **setPower**:
+* **getPower**:
+* **setVelocity**:
+* **getVelocity**:
+* **setPosition**:
+* **getPosition**:
+* **setPidPower**:
+* **setCurrent**:
+* **getCurrent**:
+* **setVelocityPidParameters**:
+* **setVelocityPidTolerance**:
+* **getVelocityOnTarget**:
+* **setVelocityPidPowerComp**:
+* **setPositionPidParameters**:
+* **setPositionPidTolerance**:
+* **getPositionOnTarget**:
+* **setPositionPidPowerComp**:
+* **setCurrentPidParameters**:
+* **setCurrentPidTolerance**:
+* **getCurrentOnTarget**:
+* **setCurrentPidPowerComp**:
+* **zeroCalibrate**:
+* **presetPositionUp**:
+* **presetPositionDown**:
+* **presetVelocityUp**:
+* **presetVelocityDown**:
+
+## Example: Create an Arm Subsystem
 Since all these subsystems are derivatives of the Motor Actuator, we will just show the example of how an Arm subsystem for FTC is implemented. For FRC implementation, we will leave it for you as an exercise. It should be very similar. To create the arm subsystem, follow the steps below:
 * Create a Java class in the subsystems folder (e.g. Arm.java).
 ```
@@ -148,51 +196,3 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     public static final double ARM_STALL_TIMEOUT                = 0.2;
     public static final double ARM_STALL_RESET_TIMEOUT          = 0.0;
 ```
-
-## Subsystem Parameters
-* **setMotorInverted**:
-* **setFollowerMotor**:
-* **setLowerLimitSwitch, setUpperLimitSwitch**:
-* **setLowerLimitSwitch**:
-* **setVoltageCompensationEnabled**:
-* **setPositionScaleAndOffset**:
-* **setPositionPresets**:
-
-## Subsystem Methods
-* **Constructor**:
-* **getActuator**:
-
-The following are the most commonly called methods provided by '''TrcMotor''' which is the object returned by the *getActuator* method:
-* **setStallProtection**:
-* **setStallDetectionEnabled**:
-* **isLowerLimitSwitchActive, isUpperLimitSwitchActive**:
-* **resetPosition**:
-* **setSoftwarePidEnabled**:
-* **cancel**:
-* **stop**:
-* **setPower**:
-* **getPower**:
-* **setVelocity**:
-* **getVelocity**:
-* **setPosition**:
-* **getPosition**:
-* **setPidPower**:
-* **setCurrent**:
-* **getCurrent**:
-* **setVelocityPidParameters**:
-* **setVelocityPidTolerance**:
-* **getVelocityOnTarget**:
-* **setVelocityPidPowerComp**:
-* **setPositionPidParameters**:
-* **setPositionPidTolerance**:
-* **getPositionOnTarget**:
-* **setPositionPidPowerComp**:
-* **setCurrentPidParameters**:
-* **setCurrentPidTolerance**:
-* **getCurrentOnTarget**:
-* **setCurrentPidPowerComp**:
-* **zeroCalibrate**:
-* **presetPositionUp**:
-* **presetPositionDown**:
-* **presetVelocityUp**:
-* **presetVelocityDown**:
