@@ -1,3 +1,4 @@
+# Driving FRC Swerve Drive Base in TeleOp
 Follow the instructions below to modify the FRC Template code for your swerve robot.
 1. In RobotParams.java, update the **SWERVE_DRIVE_MOTOR_TYPE** and **SWERVE_STEER_MOTOR_TYPE** to the motor types for your swerve modules.
 2. The Template code standardizes CAN IDs of the drive and steer motors on the swerve module so that the template code can be run on the drive base of any season. The left front, right front, left back and right back drive motors have their CAN IDs as 3, 4, 5 and 6 respectively. The left front, right front, left back and right back steer motors have their CAN IDs as 13, 14, 15 and 16 respectively. Please configure their CAN IDs accordingly.
