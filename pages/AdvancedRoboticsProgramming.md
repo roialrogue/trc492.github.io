@@ -9,8 +9,8 @@ Before you can start coding, you need to install the required software on your l
 ## TeleOp Driving Your Robot Right Out-Of-The-Box
 At this point, you should have installed all necessary software for developing robot code and also clone the robot template code from the GitHub repo. Since the template already contains basic code for three different kinds of robot base (Differential Drive, Mecanum Drive and Swerve Drive), it takes very few modifications to make it work with any of the three types of robots.
 
-* [[Driving FRC Swerve Drive Base in TeleOp]]
-* [[Driving FTC Mecanum Drive Base in TeleOp]]
+* [Driving FRC Swerve Drive Base in TeleOp](https://trc492.github.io/pages/FrcSwerveTeleOp.html)
+* [Driving FTC Mecanum Drive Base in TeleOp](https://trc492.github.io/pages/FtcMecanumTeleOp.html)
 
 ## Creating Subsystems
 Once the drive base is fully operational, the next step is to create subsystems for the robot such as Elevator, Arm, Intake, Grabber etc. It is a good practice to create subsystems as separate Java classes that encapsulate all hardware related to those subsystems. To create a subsystem, you need to determine the following:
