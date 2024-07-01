@@ -27,7 +27,9 @@ Motor Actuator supports different configurations of subsystems. Even though they
 * **getActuator**: Returns the **TrcMotor** created for the mechanism.
 
 The following are the most commonly called methods provided by **TrcMotor** which is the object returned by the *getActuator* method:
-* **setStallProtection**: Sets stall protection. When stall protection is turned ON, it will monitor the motor movement for stalled condition. A motor is considered stalled if:
+* **setStallProtection**: Sets stall protection. When stall protection is turned ON, it will monitor the motor movement for stalled condition and will cut power to protect the motor.
+
+  A motor is considered stalled if:
   * power applied to the motor is above or equal to *stallMinPower*.
   * motor has not moved or movement stayed within *stallTolerance* for at least *stallTimeout*.
 
@@ -105,28 +107,9 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     //        // The getPowerComp method will be called every time when PID is calculating the power to be applied to the arm.
     //        // The PowerComp value will be added to the arm power to compensate for gravity.
     //        arm.setPositionPidPowerComp(this::getPowerComp);
-    //        // Enabling Stall Detection is optional. You only need this if you want to zero calibrate the arm, but you don't
-    //        // have a lower limit switch. By enabling stall detection, the arm position will be reset when the motor is
-    //        // stalled during zero calibration.
-    //        // STALL_DETECTION_DELAY specifies the amount of time to delay detecting stall condition in order to give time for
-    //        //    the motor to start up.
-    //        // STALL_DETECTION_TIMEOUT specifies the amount of time that the motor is not moving, or the movement is below
-    //        //    ErrRateThreshold before declaring motor stalled.
-    //        // STALL_DETECTION_ERR_RATE_THRESHOLD specifies the amount of movement below which we considered the motor not
-    //        //    moving.
     //        armMotor.setStallDetectionEnabled(
     //            RobotParams.ARM_STALL_DETECTION_DELAY, RobotParams.ARM_STALL_DETECTION_TIMEOUT,
     //            RobotParams.ARM_STALL_ERR_RATE_THRESHOLD);
-            //
-            // Stall protection is optional and will detect motor stall to cut power to protect it.
-            // A motor is considered stalled if:
-            // - the power applied to the motor is above or equal to stallMinPower.
-            // - the motor has not moved, or movement stayed within stallTolerance for at least stallTimeout.
-            // Note: By definition, holding target position doing software PID control is stalling. If you decide to enable
-            //       stall protection while holding target, please make sure to set a stallMinPower much greater than the
-            //       power necessary to hold position against gravity, for example. However, if you want to zero calibrate
-            //       on motor stall, you want to make sure calPower is at least stallMinPower.
-            //
             armMotor.setStallProtection(
                 RobotParams.ARM_STALL_MIN_POWER, RobotParams.ARM_STALL_TOLERANCE,
                 RobotParams.ARM_STALL_TIMEOUT, RobotParams.ARM_STALL_RESET_TIMEOUT);
