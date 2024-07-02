@@ -93,8 +93,8 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
             armMotor = new FtcMotorActuator(RobotParams.HWNAME_ARM, true, armParams).getActuator();
             //
             // If you are using motor native PID control, uncomment the following line. Otherwise, comment it out.
-            // For FTC motors, the built-in PID Coefficients are generally good enough, so we don't need to set it. But for FRC,
-            // you need to do a setPositionPidParameters here because the default Coefficients are probably zeros.
+            // For FTC motors, the built-in PID Coefficients are generally good enough, so we don't need to set it. But for
+            // FRC, you need to do a setPositionPidParameters here because the default Coefficients are probably zeros.
             //
             armMotor.setPositionPidTolerance(RobotParams.SLIDE_TOLERANCE);
             //
