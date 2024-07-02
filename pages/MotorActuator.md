@@ -136,7 +136,8 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
 * The Arm class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Arm subsystem section like below:
 ```
     //
-    // Arm subsystem.
+    // Arm subsystem: All values below are just an example implementation, you need to change them to fit your subsystem
+    // and tune some of the values (e.g. PID Coefficients).
     //
     public static final String HWNAME_ARM                       = "arm";
     // Actuator parameters.
@@ -154,6 +155,7 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     public static final double ARM_MAX_POS                      = 300.0;
     // Preset positions.
     public static final double ARM_PRESET_TOLERANCE             = 5.0;
+    // Presets array must be sorted in ascending order.
     public static final double[] ARM_PRESETS                    = new double[] {
         30.0, 60.0, 90.0, 120, 150.0, 180.0, 210.0, 240.0, 270.0
     };
