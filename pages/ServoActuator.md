@@ -1,28 +1,18 @@
 # Servo Actuator
-Servo Actuator is implemented in the **TrcServo** class in the Framework Library. It abstracts a superset of functionalities of what a motor controller can do. Some functionalities are supported by some motor controllers natively and others are simulated in software by **TrcMotor**. Since our Framework Library is shared between FTC and FRC, **TrcMotor** is platform independent and provides generic motor controller functionalities for both FTC and FRC. This allows our subsystem code to work in both FTC and FRC environment. In order for **TrcMotor** to support both FTC and FRC platforms, corresponding FTC and FRC subclasses must extend **TrcMotor** and will provide platform specific accesses to the corresponding motor controller hardware. For example, *FtcDcMotor* class in FTC and *FrcCANPhoenix5/FrcCANPhoenix6/FrcCANSparkMax* classes in FRC. To make it even easier to use, the Framework Library also provide wrapper classes *FtcMotorActuator* and *FrcMotorActuator* that contain code to instantiate and configure the motor controller/sensor hardware for the corresponding platform.
-
-Motor Actuator supports different configurations of subsystems. Even though they sound different, they are actually the same. They all contain one or more motors for movement, an encoder for keeping track of their positions, and limit switches to limit their range of movement. Therefore, the same Motor Actuator code can support all these variations.
-* **Elevator**: This extends/retracts linearly usually up and down vertically but can be at an angle if necessary. Its movement is in the unit of inches.
-* **Slide**: This is the same as an elevator but extends/retracts in and out horizontally instead.
-* **Arm**: This is a swing arm that moves around an elbow joint. Its movement is in the unit of degrees. Typically, there is an end-effector attached to the end of the arm that will become a variable load to the arm at different arm angle. For example, the end-effector will be the heaviest when the arm is completely horizontal versus zero load when the arm is vertical. In order to control the arm smoothly and hold it in position regardless of the varying load at different arm angles, **TrcMotor** supports gravity compensation which allows the code to compute compensating power according to the arm angle using trigonometry. Even though software can compensate for gravity by applying additional power, it is recommended to design an arm with mechanical gravity compensation. Ideally, an arm can be mechanically designed to be gravity neutral (i.e. the arm can be positioned at any angle and stay there without applying power to hold it). Without mechanical gravity compensation, software has to apply additional power to hold the arm in position. If the end-effector is heavy, this could cause over current applying to the motor and may eventually burnout the motor.
-* **Pan And Tilt**: It is sometimes desirable to mount an end-effector on a pan-and-tilt gimbal. Pan and Tilt are actually two motor actuators:
-  * **Turret**: This is the panning mechanism that allows the end-effector to rotate around horizontally aiming at different directions.
-  * **Tilter**: This is the tilting mechanism that allows the end-effector to rotation vertically aiming up and down. It is basically the same as an arm.
+Servo Actuator is implemented in the **TrcServo** class in the Framework Library. It abstracts a superset of functionalities of what a servo motor can do. Some functionalities are supported by the servo natively and others are simulated in software by **TrcServo**. Note that our Framework Library considers a Continuous Rotation Servo the same as a DC motors and not a servo, therefore, Servo Actuator only supports servos configured as regular servos. Since our Framework Library is shared between FTC and FRC, **TrcServo** is platform independent and provides generic servo functionalities for both FTC and FRC. This allows our subsystem code to work in both FTC and FRC environment. In order for **TrcServo** to support both FTC and FRC platforms, corresponding FTC and FRC subclasses must extend **TrcServo** and will provide platform specific accesses to the corresponding servo hardware. For example, *FtcServo* class in FTC and *FrcServo* class in FRC. To make it even easier to use, the Framework Library also provide wrapper classes *FtcServoActuator* and *FrcServoActuator* that contain code to instantiate and configure the servo hardware for the corresponding platform.
 
 ## Subsystem Parameters
-* **setMotorInverted**:
-* **setFollowerMotor**:
-* **setLowerLimitSwitch, setUpperLimitSwitch**:
-* **setLowerLimitSwitch**:
-* **setVoltageCompensationEnabled**:
-* **setPositionScaleAndOffset**:
+* **setServoInverted**:
+* **setHasFollowerServo**:
+* **setLogicalPosRange**:
+* **setPhysicalPosRange**:
 * **setPositionPresets**:
 
 ## Subsystem Methods
 * **Constructor**:
 * **getActuator**:
 
-The following are the most commonly called methods provided by '''TrcMotor''' which is the object returned by the *getActuator* method:
+The following are the most commonly called methods provided by '''FtcServo''' which is the object returned by the *getActuator* method:
 * **setStallProtection**:
 * **setStallDetectionEnabled**:
 * **isLowerLimitSwitchActive, isUpperLimitSwitchActive**:
