@@ -104,8 +104,8 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     //        armMotor.setPositionPidParameters(
     //            RobotParams.ARM_KP, RobotParams.ARM_KI, RobotParams.ARM_KD, RobotParams.ARM_KF,
     //            RobotParams.ARM_IZONE, RobotParams.ARM_TOLERANCE);
-    //        // The getPowerComp method will be called every time when PID is calculating the power to be applied to the arm.
-    //        // The PowerComp value will be added to the arm power to compensate for gravity.
+    //        // The getPowerComp method will be called every time when PID is calculating the power to be applied to the
+    //        // arm. The PowerComp value will be added to the arm power to compensate for gravity.
     //        arm.setPositionPidPowerComp(this::getPowerComp);
     //        armMotor.setStallDetectionEnabled(
     //            RobotParams.ARM_STALL_DETECTION_DELAY, RobotParams.ARM_STALL_DETECTION_TIMEOUT,
