@@ -23,8 +23,8 @@ Motor Actuator supports different configurations of subsystems. Even though they
 * **setPositionPresets**: Sets up an array of preset positions. This is optional. Only if you wish to use two gamepad buttons (e.g. DPad Up/Down) to command the mechanism to go up/down to the next preset position. Note that the preset position array must be sorted in ascending order.
 
 ## Subsystem Methods
-* **Constructor**: Creates an instance of the mechanism and specifies if it is a DC Motor or a Continuous Rotation Servo.
-* **getActuator**: Returns the **TrcMotor** created for the mechanism.
+* **Constructor**: Creates an instance of the mechanism with the specified parameters and optionally specifies if it is a DC Motor or a Continuous Rotation Servo (default is DC Motor).
+* **getActuator**: Returns the **TrcMotor** object created for the mechanism.
 
 The following are the most commonly called methods provided by **TrcMotor** which is the object returned by the *getActuator* method:
 * **setStallProtection**: Sets stall protection. When stall protection is turned ON, it will monitor the motor movement for stalled condition and will cut power to protect the motor.
