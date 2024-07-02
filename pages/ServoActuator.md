@@ -2,15 +2,15 @@
 Servo Actuator is implemented in the **TrcServo** class in the Framework Library. It abstracts a superset of functionalities of what a servo motor can do. Some functionalities are supported by the servo natively and others are simulated in software by **TrcServo**. Note that our Framework Library considers a Continuous Rotation Servo the same as a DC motors and not a servo, therefore, Servo Actuator only supports servos configured as regular servos. Since our Framework Library is shared between FTC and FRC, **TrcServo** is platform independent and provides generic servo functionalities for both FTC and FRC. This allows our subsystem code to work in both FTC and FRC environment. In order for **TrcServo** to support both FTC and FRC platforms, corresponding FTC and FRC subclasses must extend **TrcServo** and will provide platform specific accesses to the corresponding servo hardware. For example, *FtcServo* class in FTC and *FrcServo* class in FRC. To make it even easier to use, the Framework Library also provide wrapper classes *FtcServoActuator* and *FrcServoActuator* that contain code to instantiate and configure the servo hardware for the corresponding platform.
 
 ## Subsystem Parameters
-* **setServoInverted**:
-* **setHasFollowerServo**:
-* **setLogicalPosRange**:
-* **setPhysicalPosRange**:
-* **setPositionPresets**:
+* **setServoInverted**: Sets the servo direction.
+* **setHasFollowerServo**: Specifies if you have a follower servo (2-servo driven mechanism) and also sets its direction so that it agrees with the primary servo.
+* **setLogicalPosRange**: Sets the logical position range of the servo. This is useful to limit the range to be within the max range of 0.0 and 1.0. If this is not set, the default range is 0.0 to 1.0.
+* **setPhysicalPosRange**: Sets the physical position range of the servo in physical real world unit. The physical range should correspond to the logical range. For example, if the Logical Range is set to 0.2 to 0.85 which corresponds to 15 to 95 degrees, then the logical range should be set to 15.0 and 95.0 correspondingly. If this is not set, the default physical range is 0.0 to 1.0. In most common scenarios, we don't really care about using physical position values, therefore, we generally do not set physical range nor logical range and just leave them at their default ranges.
+* **setPositionPresets**: Sets up an array of preset positions in physical units. This is optional. Only if you wish to use two gamepad buttons (e.g. DPad Up/Down) to command the mechanism to go up/down to the next preset position. Note that the preset position array must be sorted in ascending order.
 
 ## Subsystem Methods
-* **Constructor**:
-* **getActuator**:
+* **Constructor**: Creates an instance of the mechanism with the specified parameters.
+* **getActuator**: Returns the FtcServo object created for the mechanism.
 
 The following are the most commonly called methods provided by '''FtcServo''' which is the object returned by the *getActuator* method:
 * **setStallProtection**:
