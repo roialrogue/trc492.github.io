@@ -6,59 +6,33 @@ Servo Actuator is implemented in the **TrcServo** class in the Framework Library
 * **setHasFollowerServo**: Specifies if you have a follower servo (2-servo driven mechanism) and also sets its direction so that it agrees with the primary servo.
 * **setLogicalPosRange**: Sets the logical position range of the servo. This is useful to limit the range to be within the max range of 0.0 and 1.0. If this is not set, the default range is 0.0 to 1.0.
 * **setPhysicalPosRange**: Sets the physical position range of the servo in physical real world unit. The physical range should correspond to the logical range. For example, if the Logical Range is set to 0.2 to 0.85 which corresponds to 15 to 95 degrees, then the logical range should be set to 15.0 and 95.0 correspondingly. If this is not set, the default physical range is 0.0 to 1.0. In most common scenarios, we don't really care about using physical position values, therefore, we generally do not set physical range nor logical range and just leave them at their default ranges.
+* **setMaxStepRate**: Sets the maximum stepping rate of the servo. This enables *setPower* to speed control the servo. Generally, servos do not support speed control. If you set the servo to a certain position, it will go there at its own time. You cannot speed up or slow it down. However, it is sometimes useful to be able to speed control a servo. For example, using a joystick to control how fast the servo moves. Therefore, **TrcServo** provides software simulation of speed controlling a servo by specifying the maximum stepping rate of the servo in physical units per second. It performs speed controlling the servo by moving the servo to its target position in steps. It calculates the step size by multiplying the *maxStepRate* with percentage power. Therefore, if we are moving the servo at maximum power, it will calculate a maximum step size. To slow down the movement, it will calculate a percentage of the maximum step size.
 * **setPositionPresets**: Sets up an array of preset positions in physical units. This is optional. Only if you wish to use two gamepad buttons (e.g. DPad Up/Down) to command the mechanism to go up/down to the next preset position. Note that the preset position array must be sorted in ascending order.
 
 ## Subsystem Methods
 * **Constructor**: Creates an instance of the mechanism with the specified parameters.
-* **getActuator**: Returns the FtcServo object created for the mechanism.
+* **getActuator**: Returns the **FtcServo** object created for the mechanism.
 
-The following are the most commonly called methods provided by '''FtcServo''' which is the object returned by the *getActuator* method:
-* **setStallProtection**:
-* **setStallDetectionEnabled**:
-* **isLowerLimitSwitchActive, isUpperLimitSwitchActive**:
-* **resetPosition**:
-* **setSoftwarePidEnabled**:
-* **cancel**:
-* **stop**:
-* **setPower**:
-* **getPower**:
-* **setVelocity**:
-* **getVelocity**:
-* **setPosition**:
-* **getPosition**:
-* **setPidPower**:
-* **setCurrent**:
-* **getCurrent**:
-* **setVelocityPidParameters**:
-* **setVelocityPidTolerance**:
-* **getVelocityOnTarget**:
-* **setVelocityPidPowerComp**:
-* **setPositionPidParameters**:
-* **setPositionPidTolerance**:
-* **getPositionOnTarget**:
-* **setPositionPidPowerComp**:
-* **setCurrentPidParameters**:
-* **setCurrentPidTolerance**:
-* **getCurrentOnTarget**:
-* **setCurrentPidPowerComp**:
-* **zeroCalibrate**:
-* **presetPositionUp**:
-* **presetPositionDown**:
-* **presetVelocityUp**:
-* **presetVelocityDown**:
+The following are the most commonly called methods provided by **TrcServo** which is the object returned by the *getActuator* method:
+* **cancel**: Cancels a previous servo operation if there is one.
+* **getPosition**: Returns the physical position value of the servo. Generally, servo do not provide real time position feedback. Therefore, this will only return the position set by the last *setPosition* call.
+* **setPosition**: Sets the servo position. By default, the servo maps its physical position the same as its logical position [0.0, 1.0]. However, if setPhysicalPosRange was called, it could map a real world physical range (e.g. [0.0, 180.0] degrees) to the logical range of [0.0, 1.0]. Servo operates on logical position. On a 180-degree servo, 0.0 is at 0-degree and 1.0 is at 180-degree. For a 90-degree servo, 0 -> 0-deg, 1 -> 90-deg. If servo direction is inverted, then 0.0 is at 180-deg and 1.0 is at 0-deg. Optionally, you can specify a delay before running the servo to the specified position. Also optionally, if you specify a stepping rate, it will speed control the servo with the specified speed.
+* **setPower**: Speed controls the servo with stepping. Optionally, you can specify a delay before running the servo with the specified percentage speed.
+* **getPower**: Returns the last set power value.
+* **presetPositionUp**: Sets the servo to the next preset position up from the current position.
+* **presetPositionDown**: Sets the servo to the next preset position down from the current position.
 
-## Example: Create an Arm Subsystem
-Since all these subsystems are derivatives of the Motor Actuator, we will just show the example of how an Arm subsystem for FTC is implemented. For FRC implementation, we will leave it for you as an exercise. It should be very similar. To create the arm subsystem, follow the steps below:
-* Create a Java class in the subsystems folder (e.g. Arm.java).
+## Example: Create a Grabber Subsystem
+* Create a Java class in the subsystems folder (e.g. Grabber.java).
 ```
-    public class Arm
+    public class Grabber
     {
         private final TrcMotor armMotor;
     
         /**
          * Constructor: Creates an instance of the object.
          */
-        public Arm()
+        public Grabber()
         {
             FtcMotorActuator.Params armParams = new FtcMotorActuator.Params()
                 // Set motor direction so that positive power is to swing the arm upward.
