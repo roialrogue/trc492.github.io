@@ -147,15 +147,15 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     public static final boolean ARM_HAS_UPPER_LIMIT_SWITCH      = false;
     public static final boolean ARM_UPPER_LIMIT_INVERTED        = false;
     public static final boolean ARM_VOLTAGE_COMP_ENABLED        = true;
-    public static final double ARM_ENCODER_PPR                  = 537.6898;
+    public static final double ARM_ENCODER_PPR                  = 537.6898;     // Motor encoder PPR
     public static final double ARM_GEAR_RATIO                   = 28.0;
     public static final double ARM_DEG_PER_COUNT                = 360.0 / ARM_ENCODER_PPR / ARM_GEAR_RATIO;
-    public static final double ARM_OFFSET                       = 27.0;
-    public static final double ARM_MIN_POS                      = 27.3;
-    public static final double ARM_MAX_POS                      = 300.0;
+    public static final double ARM_OFFSET                       = 27.0;        // Arm resting position angle in deg
+    public static final double ARM_MIN_POS                      = 27.3;        // Arm min angle in deg
+    public static final double ARM_MAX_POS                      = 300.0;       // Arm max angle in deg
     // Preset positions.
-    public static final double ARM_PRESET_TOLERANCE             = 5.0;
-    // Presets array must be sorted in ascending order.
+    public static final double ARM_PRESET_TOLERANCE             = 5.0;         // in deg
+    // Presets array must be sorted in ascending order in the unit of deg
     public static final double[] ARM_PRESETS                    = new double[] {
         30.0, 60.0, 90.0, 120, 150.0, 180.0, 210.0, 240.0, 270.0
     };
@@ -165,14 +165,14 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     public static final double ARM_KD                           = 0.0;
     public static final double ARM_KF                           = 0.0;
     public static final double ARM_IZONE                        = 0.0;
-    public static final double ARM_TOLERANCE                    = 2.0;
-    public static final double ARM_MAX_GRAVITY_COMP_POWER       = 0.1675;
-    public static final double ARM_STALL_DETECTION_DELAY        = 0.5;
-    public static final double ARM_STALL_DETECTION_TIMEOUT      = 0.1;
-    public static final double ARM_STALL_ERR_RATE_THRESHOLD     = 10.0;
-    public static final double ARM_CAL_POWER                    = -0.25;
+    public static final double ARM_TOLERANCE                    = 2.0;         // in deg
+    public static final double ARM_MAX_GRAVITY_COMP_POWER       = 0.1675;      // in percentage power
+    public static final double ARM_STALL_DETECTION_DELAY        = 0.5;         // in seconds
+    public static final double ARM_STALL_DETECTION_TIMEOUT      = 0.1;         // in seconds
+    public static final double ARM_STALL_ERR_RATE_THRESHOLD     = 10.0;        // in deg/sec
+    public static final double ARM_CAL_POWER                    = -0.25;       // in percentage power
     public static final double ARM_STALL_MIN_POWER              = Math.abs(ARM_CAL_POWER);
-    public static final double ARM_STALL_TOLERANCE              = 0.1;
-    public static final double ARM_STALL_TIMEOUT                = 0.2;
-    public static final double ARM_STALL_RESET_TIMEOUT          = 0.0;
+    public static final double ARM_STALL_TOLERANCE              = 0.1;         // in deg
+    public static final double ARM_STALL_TIMEOUT                = 0.2;         // in second
+    public static final double ARM_STALL_RESET_TIMEOUT          = 0.0;         // in second
 ```
