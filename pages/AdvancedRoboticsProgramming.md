@@ -21,6 +21,7 @@ Once the drive base is fully operational, the next step is to create subsystems 
 * **[Conveyor](https://trc492.github.io/pages/Conveyor.html)**:
 * **[Shooter](https://trc492.github.io/pages/Shooter.html)**:
 * **[Grabber](https://trc492.github.io/pages/Grabber.html)**:
+* **[Vision](https://trc492.github.io/pages/Vision.html)**;
 
 ## Creating Subsystems
 It is a good practice to create subsystems as separate Java classes that encapsulate all hardware related to those subsystems. To create a subsystem, you need to determine the following:
@@ -31,5 +32,7 @@ It is a good practice to create subsystems as separate Java classes that encapsu
 * Instantiate the subsystems
 * TeleOp control of the subsystems
 * Display subsystem status
+
+## Debugging
 
 ## Writing Autonomous Code
