@@ -103,10 +103,106 @@ The following are the most commonly called methods provided by **TrcServo** whic
     public static final double WRIST_SERVO_PHYSICAL_MAX         = 360.0;        // in degrees
     public static final double WRIST_SERVO_MAX_STEPRATE         = 115.0 * 360.0 / 60.0 / WRIST_GEAR_RATIO;  // in degrees/sec
     public static final double WRIST_DOWN_POS                   = 0.0;
+    public static final double WRIST_POWER_SCALE                = 1.0;          // operate the wrist at full speed.
     // Preset positions.
     public static final double WRIST_PRESET_TOLERANCE           = 1.0;          // in deg
     // Presets array must be sorted in ascending order in the unit of deg
     public static final double[] WRIST_PRESETS                  = new double[] {
         0.0, 60.0, 120.0, 180.0, 240.0, 300.0
     };
+```
+* To display Wrist Subsystem status in Dashboard, add code to the *updateStatus* method of **Robot.java**.
+```
+    public void updateStatus()
+    {
+        ...
+        if (wrist != null)
+        {
+            dashboard.displayPrintf(++lineNum, "Wrist: pos=" + wrist.getPosition());
+        }
+        ...
+    }
+``` 
+* Operating the Wrist Subsystem in TeleOp Mode
+  * Determine how you want to control the Wrist Subsystem. For example:
+    * Assign the Y-axis of the left joystick on the Operator Gamepad to control the Wrist moving up and down.
+    * Assign the DPad Up/Down buttons on the Operator Gamepad to move the Wrist to the next preset position up or down.
+  * To control the Wrist with an analog joystick, add code to the *periodic* method of **FtcTeleOp.java** like below. This code will periodically read the joystick value and use it to control how fast the Wrist will move.
+  *  To step the Wrist position up and down preset values, add code to the *operatorButtonEvent* method of **FtcTeleOp.java**. The Framework Library monitors button events and will call this method when a button is pressed or released. When the DPad Up is pressed, we will call the Wrist to move to the next preset position up. When the DPad Down is pressed, we will call it to move to the next preset position down. Note that if you also implemented an Arm from the previous section, DPad Up/Down buttons on the Operator Gamepad are already used by the Arm to step up/down its position. We could find another two buttons for that. But Gamepad buttons are scarce resources, so we are going to apply a trick to give us more buttons. This is basically similar to a computer keyboard or calculator keypad where you have the Alt button (or 2nd Func button). By pressing and holding the Alt button down, other buttons on the keyboard have other meaning. Since we already have an operatorAltFunc button defined in the Arm Subsystem section, we are going to use it in conjunction with the DPad Up/Down for controlling the Wrist stepping up and down.
+```
+    private double wristPrevPower = 0.0;
+    private boolean operatorAltFunc = false;
+    ...
+    public void periodic(double elapsedTime, boolean slowPeriodicLoop)
+    {
+        ...
+        //
+        // Other subsystems.
+        //
+        if (RobotParams.Preferences.useSubsystems)
+        {
+            // Wrist subsystem: only do this if the wrist is enabled.
+            if (robot.wrist != null)
+            {
+                // Send power value to the wrist if it is different from before.
+                // This prevents repeatedly sending zero power to the wrist if the joystick is not moved.
+                double wristPower = operatorGamepad.getRightStickY(true) * RobotParams.WRIST_POWER_SCALE;
+                if (wristPower != wristPrevPower)
+                {
+                    robot.wrist.setPower(wristPower);
+                    armPrevPower = armPower;
+                }
+            }
+            ...
+        }
+        ...
+    }
+    ...
+    public void operatorButtonEvent(TrcGameController gamepad, int button, boolean pressed)
+    {
+        ...
+        switch (button)
+        {
+            ...
+            case FtcGamepad.GAMEPAD_RBUMPER:
+                robot.globalTracer.traceInfo(moduleName, ">>>>> operatorAltFunc=" + pressed);
+                operatorAltFunc = pressed;
+                break;
+            case FtcGamepad.DPAD_UP:
+                if (pressed)
+                {
+                    // Check if wrist is enabled.
+                    if (operatorAltFunc && robot.wrist != null)
+                    {
+                        robot.globalTracer.traceInfo(moduleName, ">>>>> Wrist Preset Up");
+                        robot.wrist.presetPositionUp(moduleName);
+                    }
+                    // Check if arm is enabled.
+                    else (!operatorAltFunc && robot.arm != null)
+                    {
+                        robot.globalTracer.traceInfo(moduleName, ">>>>> Arm Preset Up");
+                        robot.arm.presetPositionUp(moduleName, RobotParams.ARM_POWER_SCALE);
+                    }
+                }
+                break;
+            case FtcGamepad.DPAD_DOWN:
+                if (pressed)
+                {
+                    // Check if wrist is enabled.
+                    if (operatorAltFunc && robot.wrist != null)
+                    {
+                        robot.globalTracer.traceInfo(moduleName, ">>>>> Wrist Preset Down");
+                        robot.wrist.presetPositionDown(moduleName);
+                    }
+                    // Check if arm is enabled.
+                    else (!operatorAltFunc && robot.arm != null)
+                    {
+                        robot.globalTracer.traceInfo(moduleName, ">>>>> Arm Preset Down");
+                        robot.arm.presetPositionDown(moduleName, RobotParams.ARM_POWER_SCALE);
+                    }
+                }
+                break;
+        }
+        ...
+    }
 ```
