@@ -5,9 +5,8 @@ Pneumatic Actuator is implemented in the **FrcPneumatic** class in the Framework
 * **Constructor**: Creates an instance of the actuator with one or two pneumatic channels.
 
 The following are the most commonly called methods:
-* **isExtendActive**: Checks if the extend channel is active.
+* **isExtended**: Checks if the pneumatic cylinder is extended. It may return null if the state is unknown which could occur if the initial state of the Pneumatic Actuator was not initialized. After the Pneumatic Actuator is instantiated, you should call extend or retract to initialize its state.
 * **extend**: Sets the extend channel active with optional delay and duration.
-* **isRetractActive**: Checks if the retract channel is active.
 * **retract**: Sets the retract channel active with optional delay and duration.
 
 ## Example: Create a Deployer Subsystem for FRC
@@ -52,4 +51,45 @@ The following are the most commonly called methods:
     //
     public static final int PNEUMATIC_DEPLOYER_EXTEND           = 0;
     public static final int PNEUMATIC_DEPLOYER_RETRACT          = 1;
+```
+* To display Deployer Subsystem status in Dashboard, add code to the *updateStatus* method of **Robot.java**.
+```
+    public void updateStatus()
+    {
+        ...
+        if (deployer != null)
+        {
+            dashboard.displayPrintf(
+                ++lineNum,
+                "Deployer: extended=" + deployer.isExtended());
+        }
+        ...
+    }
+``` 
+* Operating the Deployer Subsystem in TeleOp Mode
+  * Determine how you want to control the Deployer Subsystem. For example, one way is to assign a button on the Operator Gamepad to extend/retract the Deployer. Pressing the button to deploy and releasing it to retract. There are other ways of using buttons to actuate the Deployer. Please refer to the [Tips and Tricks](https://trc492.github.io/pages/AdvancedRoboticsProgramming.html#different-ways-of-using-gamepad-buttons) section.
+```
+    protected void operatorControllerButtonEvent(int buttonValue, boolean pressed)
+    {
+        ...
+        switch (button)
+        {
+            case BUTTON_A:
+                if (robot.deployer != null)
+                {
+                    if (pressed)
+                    {
+                        robot.deployer.extend();
+                    }
+                    else
+                    {
+                        robot.deployer.retract();
+                    }
+                    robot.globalTracer.traceInfo(moduleName, ">>>>> DeployerExtended=" + pressed);
+                }
+                break;
+            ...
+        }
+        ...
+    }
 ```
