@@ -22,7 +22,7 @@ The following are the most commonly called methods provided by **TrcServo** whic
 * **presetPositionUp**: Sets the servo to the next preset position up from the current position.
 * **presetPositionDown**: Sets the servo to the next preset position down from the current position.
 
-## Example: Create a Wrist Subsystem
+## Example: Create a Wrist Subsystem for FTC
 * Create a Java class in the subsystems folder (e.g. Wrist.java).
 ```
     public class Wrist
@@ -50,12 +50,12 @@ The following are the most commonly called methods provided by **TrcServo** whic
         }
     }
 ```
-* Instantiate the Wrist subsystem in the robotInit method of Robot.java.
+* Instantiate the Wrist subsystem in the constructor of Robot.java.
 ```
     ...
     public FtcServo wrist;
     ...
-    public void robotInit()
+    public Robot(TrcRobot.RunMode runMode)
     {
         ...
         if (RobotParams.Preferences.useSubsystems)
@@ -108,4 +108,3 @@ The following are the most commonly called methods provided by **TrcServo** whic
         0.0, 60.0, 120.0, 180.0, 240.0, 300.0
     };
 ```
-* Add
