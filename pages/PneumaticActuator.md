@@ -37,7 +37,8 @@ The following are the most commonly called methods:
 * The deployer object above is referencing a few constants from RobotParams.java. We need to define those constants. In the Solenoid section of RobotParam.java, add the constants like below.
 ```
     //
-    // Solenoid channels: All values below are just an example implementation, you need to change them to fit your subsystem.
+    // Solenoid channels:
+    // All values below are just an example implementation, you need to change them to fit your subsystem.
     //
     public static final int PNEUMATIC_DEPLOYER_EXTEND           = 0;
     public static final int PNEUMATIC_DEPLOYER_RETRACT          = 1;
