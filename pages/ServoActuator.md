@@ -86,7 +86,8 @@ The following are the most commonly called methods provided by **TrcServo** whic
     }
     ...
     //
-    // Wrist subsystem: All values below are just an example implementation, you need to change them to fit your subsystem.
+    // Wrist subsystem:
+    // All values below are just an example implementation, you need to change them to fit your subsystem.
     //
     public static final String HWNAME_WRIST                     = "wrist";
     // Actuator parameters.
