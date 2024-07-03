@@ -101,5 +101,11 @@ Since complex subsystems are very specific on their restrictions and what they c
 ## Creating Autonomous Code
 
 ## Miscellaneous Tips and Tricks
-* How to increase the number of available buttons on your Gamepad?
-* Different ways of using Gamepad buttons
+
+### Increase the number of available buttons on your Gamepad
+Gamepad buttons are scarce resources, but there is a trick to give us more buttons. This is basically similar to a computer keyboard or calculator keypad where you have the Alt button (or 2nd Func button). By pressing and holding the Alt button down, other buttons on the keyboard can have other functions.
+
+### Different ways of using Gamepad buttons
+  * Use one button to turn on and another to turn off
+  * Use a single button to toggle ON and OFF
+  * Button press to turn ON and release to turn off
