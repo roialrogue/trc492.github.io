@@ -1,16 +1,16 @@
 # Advanced Robotics Programming With Titan Robotics Framework
-This tutorial focuses on our *Titan Robotics Framework* (TRC Library). The target audience is for students who already have basic knowledge of the Java language. The Titan Robotics Framework is designed for both FRC and FTC. After finishing this tutorial, you should be able to write code for both FTC and FRC robots with minimal platform specific changes.
+This tutorial focuses on our *Titan Robotics Framework* (TRC Library). The target audience is for students who already know the Java language. The Titan Robotics Framework is designed for both FTC and FRC. After finishing this tutorial, you should be able to write code for both FTC and FRC robots with minimal platform specific changes.
 
 ## Programming Software Installation
 Before you can start coding, you need to install the required software on your laptop. Please take some time to do this at home. Software installation is time consuming and require downloading gigabytes of data from the Internet. Follow the instructions below for the software you need.
-* [FRC Programming Software Installation](https://trc492.github.io/pages/FrcProgrammingSoftwareInstallation.html)
 * [FTC Programming Software Installation](https://trc492.github.io/pages/FtcProgrammingSoftwareInstallation.html)
+* [FRC Programming Software Installation](https://trc492.github.io/pages/FrcProgrammingSoftwareInstallation.html)
 
 ## TeleOp Driving Your Robot Right Out-Of-The-Box
 At this point, you should have installed all necessary software for developing robot code and also clone the robot template code from the GitHub repo. Since the template already contains basic code for three different kinds of robot base (Differential Drive, Mecanum Drive and Swerve Drive), it takes very few modifications to make it work with any of the three types of robots.
 
-* [Driving FRC Swerve Drive Base in TeleOp](https://trc492.github.io/pages/FrcSwerveTeleOp.html)
 * [Driving FTC Mecanum Drive Base in TeleOp](https://trc492.github.io/pages/FtcMecanumTeleOp.html)
+* [Driving FRC Swerve Drive Base in TeleOp](https://trc492.github.io/pages/FrcSwerveTeleOp.html)
 
 ## Basic Subsystems Provided by Titan Robotics Framework
 Once the drive base is fully operational, the next step is to create subsystems for the robot such as Elevator, Arm, Intake, Grabber etc. Even though the game of each season changes, a lot of subsystems repeat themselves season after season. Therefore, our Framework Library provides generalized subsystems to handle most of the scenarios. Here are some typical subsystems provided by our Framework Library.
