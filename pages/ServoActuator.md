@@ -11,7 +11,7 @@ Servo Actuator is implemented in the **TrcServo** class in the Framework Library
 
 ## Subsystem Methods
 * **Constructor**: Creates an instance of the mechanism with the specified parameters.
-* **getActuator**: Returns the **FtcServo** object created for the mechanism.
+* **getActuator**: Returns the **FtcServo** or **FrcServo** object created for the mechanism.
 
 The following are the most commonly called methods provided by **TrcServo** which is the object returned by the *getActuator* method:
 * **cancel**: Cancels a previous servo operation if there is one.
