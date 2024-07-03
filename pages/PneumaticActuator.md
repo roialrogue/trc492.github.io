@@ -27,6 +27,7 @@ The following are the most commonly called methods:
                 deployer = new FrcPneumatic(
                     "Deployer", RobotParams.CANID_PCM, PneumaticsModuleType.REVPH,
                     RobotParams.PNEUMATIC_DEPLOYER_EXTEND, RobotParams.PNEUMATIC_RETRACT);
+                // Initialize the deployer position.
                 deployer.retract();
             }
             ...
