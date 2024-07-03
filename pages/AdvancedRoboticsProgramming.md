@@ -1,4 +1,4 @@
-# Advanced Robotics Programming
+# Advanced Robotics Programming With Titan Robotics Framework
 This tutorial focuses on our *Titan Robotics Framework* (TRC Library). The target audience is for students who already have basic knowledge of the Java language. It is primarily designed for FRC although it is also applicable for FTC because our *TRC Library* is shared between FTC and FRC. After finishing this tutorial, you should be able to write code for both FTC and FRC robots with some platform specific differences.
 
 ## Programming Software Installation
