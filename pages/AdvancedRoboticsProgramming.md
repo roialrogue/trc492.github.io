@@ -32,11 +32,16 @@ It is a good practice to create subsystems as separate Java classes that encapsu
 
 Since complex subsystems are very specific on their restrictions and what they can do, we are ...
 
-## Connecting Subsystems to the Robot
-* Instantiate the subsystems
-* TeleOp control of the subsystems
-* Display subsystem status
+## Operating Subsystems In TeleOp Mode
 
-## Debugging
+## Debugging Subsystems
 
-## Writing Autonomous Code
+### Displaying Subsystem Status On The DashBoard
+
+### Post Mortem Debugging Using Debug Tracing
+
+### Real Time Debugging
+
+## Creating Auto-Assist Tasks
+
+## Creating Autonomous Code
