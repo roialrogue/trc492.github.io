@@ -186,6 +186,7 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     public static final double ARM_OFFSET                       = 27.0;         // Arm resting position angle in deg
     public static final double ARM_MIN_POS                      = 27.3;         // Arm min angle in deg
     public static final double ARM_MAX_POS                      = 300.0;        // Arm max angle in deg
+    public static final double ARM_POWER_SCALE                  = 0.5;          // Slowing down the arm
     // Preset positions.
     public static final double ARM_PRESET_TOLERANCE             = 5.0;          // in deg
     // Presets array must be sorted in ascending order in the unit of deg
@@ -209,4 +210,97 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     public static final double ARM_STALL_TOLERANCE              = 0.1;          // in deg
     public static final double ARM_STALL_TIMEOUT                = 0.2;          // in second
     public static final double ARM_STALL_RESET_TIMEOUT          = 0.0;          // in second
+```
+* To display Arm Subsystem status in Dashboard, add code to the *updateStatus* method of **Robot.java**.
+```
+    public void updateStatus()
+    {
+        ...
+        if (elevatorArm.arm != null)
+        {
+            dashboard.displayPrintf(
+                ++lineNum,
+                "Arm: power=" + arm.getPower() +
+                ",pos=" + arm.getPosition() +
+                ",target=" + arm.getPidTarget());
+        }
+        ...
+    }
+``` 
+* Operating the Arm Subsystem in TeleOp Mode
+  * Determine how you want to control the Arm Subsystem. For example:
+    * Assign the Y-axis of the right joystick on the Operator Gamepad to control the arm moving up and down.
+    * Assign the Right Bumper of the Operator Gamepad as the "manual override" button where if it is pressed and held, the arm will be moving with direct power using the joystick value. If the Right Bumpeer is not pressed, the arm will be moving with the joystick value using PID control and therefore will slow down when approaching its lower or upper limits regardless of the joystick value.
+    * Assign the DPad Up/Down buttons on the Operator Gamepad to move the arm to the next preset position up or down.
+  * To control the Arm with an analog joystick, add code to the *periodic* method of **FtcTeleOp.java** like below. This code will periodically read the joystick value and use it to control how fast the Arm will move. There are two ways to control how fast the Arm will move: *setPower* and *setPidPower*. *setPower* applies direct power to the arm motor with the joystick value. It does not understand *minPos* and *maxPos* and therefore will not stop or slow down at the lower or upper arm limits. *setPidPower* applies power to the arm motor with the joystick value. However, it understands *minPos* and *maxPos*. When it is approaching those limits, it will slow down the arm movement regardless of the joystick value and will stop to make sure it never passes the limits.
+  *  To step the Arm position up and down preset values, add code to the *operatorButtonEvent* method of **FtcTeleOp.java**. The Framework Library monitors button events and will call this method when a button is pressed or released. When the DPad Up is pressed, we will call the Arm to move to the next preset position up. When the DPad Down is pressed, we will call it to move to the next preset position down.
+  *  Also add code to the *operatorButtonEvent* method of **FtcTeleOp.java** for using Right Bumper button as Manual Override.
+```
+    private double armPrevPower = 0.0;
+    private boolean manualOverride = false;
+    ...
+    public void periodic(double elapsedTime, boolean slowPeriodicLoop)
+    {
+        ...
+        //
+        // Other subsystems.
+        //
+        if (RobotParams.Preferences.useSubsystems)
+        {
+            // Arm subsystem: only do this if the arm is enabled.
+            if (robot.arm != null)
+            {
+                // Send power value to the arm if it is different from before.
+                // This prevents repeatedly sending zero power to the arm if the joystick is not moved.
+                double armPower = operatorGamepad.getRightStickY(true) * RobotParams.ARM_POWER_SCALE;
+                if (armPower != armPrevPower)
+                {
+                    if (manualOverride)
+                    {
+                        // By definition, manualOverride should not observe any safety.
+                        // Therefore, set arm power directly bypassing all safety checks.
+                        robot.arm.setPower(armPower);
+                    }
+                    else
+                    {
+                        robot.arm.armSetPidPower(
+                            null, armPower, RobotParams.ARM_MIN_POS, RobotParams.ARM_MAX_POS);
+                    }
+                    armPrevPower = armPower;
+                }
+            }
+            ...
+        }
+        ...
+    }
+    ...
+    public void operatorButtonEvent(TrcGameController gamepad, int button, boolean pressed)
+    {
+        ...
+        switch (button)
+        {
+            ...
+            case FtcGamepad.GAMEPAD_RBUMPER:
+                robot.globalTracer.traceInfo(moduleName, ">>>>> ManulOverride=" + pressed);
+                manualOverride = pressed;
+                break;
+            case FtcGamepad.DPAD_UP:
+                // Check if arm is enabled.
+                if (robot.arm != null && pressed)
+                {
+                    robot.globalTracer.traceInfo(moduleName, ">>>>> Arm Preset Up");
+                    robot.arm.presetPositionUp(moduleName, RobotParams.ARM_POWER_SCALE);
+                }
+                break;
+            case FtcGamepad.DPAD_DOWN:
+                // Check if arm is enabled.
+                if (robot.arm != null && pressed)
+                {
+                    robot.globalTracer.traceInfo(moduleName, ">>>>> Arm Preset Down");
+                    robot.arm.presetPositionDown(moduleName, RobotParams.ARM_POWER_SCALE);
+                }
+                break;
+        }
+        ...
+    }
 ```
