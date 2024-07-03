@@ -216,7 +216,7 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     public void updateStatus()
     {
         ...
-        if (elevatorArm.arm != null)
+        if (arm != null)
         {
             dashboard.displayPrintf(
                 ++lineNum,
