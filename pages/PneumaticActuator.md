@@ -10,7 +10,7 @@ The following are the most commonly called methods:
 * **isRetractActive**: Checks if the retract channel is active.
 * **retract**: Sets the retract channel active with optional delay and duration.
 
-## Example: Create a Deployer Subsystem
+## Example: Create a Deployer Subsystem for FRC
 * Instantiate an **FrcPneumatic** object as the the subsystem in the robotInit method of Robot.java. Deployer is a 2-channel pneumatic cylinder.
 ```
     ...
@@ -22,7 +22,7 @@ The following are the most commonly called methods:
         if (RobotParams.Preferences.useSubsystems)
         {
             ...
-            if (RobotParams.Preferences.useIntake)
+            if (RobotParams.Preferences.useDeployer)
             {
                 deployer = new FrcPneumatic(
                     "Deployer", RobotParams.CANID_PCM, PneumaticsModuleType.REVPH,
@@ -34,8 +34,17 @@ The following are the most commonly called methods:
         ...
     }
 ```
-* The deployer object above is referencing a few constants from RobotParams.java. We need to define those constants. In the Solenoid section of RobotParam.java, add the constants like below.
+* The code above is referencing a few constants from RobotParams.java. We need to define those constants. In RobotParams.Preferences, add a switch so that we can enable/disable the subsystem. This is very useful during development because the subsystem may not exist yet. In the Solenoid section of RobotParam.java, add the constants like below.
 ```
+    public static class Preferences
+    {
+        ...
+        // Subsystems
+        public static boolean useSubsystems = true;
+        public static boolean useDeployer = true;
+        ...
+    }
+    ...
     //
     // Solenoid channels:
     // All values below are just an example implementation, you need to change them to fit your subsystem.
