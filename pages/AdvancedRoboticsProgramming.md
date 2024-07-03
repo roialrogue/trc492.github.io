@@ -32,8 +32,6 @@ It is a good practice to create subsystems as separate Java classes that encapsu
 
 Since complex subsystems are very specific on their restrictions and what they can do, we are ...
 
-## Operating Subsystems In TeleOp Mode
-
 ## Debugging Subsystems
 
 ### Displaying Subsystem Status On The DashBoard
@@ -41,6 +39,22 @@ Since complex subsystems are very specific on their restrictions and what they c
 ### Post Mortem Debugging Using Debug Tracing
 
 ### Real Time Debugging
+
+## Tuning Subsystems
+
+### Tuning Scale and Offset
+
+### Tuning Gravity Compensation
+
+### Tuning PID
+
+## Tuning Drive Base
+
+### Tuning Drive Base Odometry
+
+### Tuning Drive Base PID
+
+## Operating Subsystems In TeleOp Mode
 
 ## Creating Auto-Assist Tasks
 
