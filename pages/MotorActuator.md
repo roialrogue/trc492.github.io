@@ -70,7 +70,7 @@ The following are the most commonly called methods provided by **TrcMotor** whic
 * **presetVelocityUp**: Sets the motor to the next preset velocity up or down from the current velocity.
 * **presetVelocityDown**: Sets the motor to the next preset velocity down from the current velocity.
 
-## Example: Create Arm Subsystem
+## Example: Create Arm Subsystem for FTC
 Since all these subsystems are derivatives of the Motor Actuator, we will just show the example of how an Arm subsystem for FTC is implemented. For FRC implementation, we will leave it for you as an exercise. It should be very similar. To create the arm subsystem, follow the steps below:
 * Create a Java class in the subsystems folder (e.g. Arm.java).
 ```
@@ -133,10 +133,41 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
         }
    }
 ```
-* The Arm class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Arm subsystem section like below.
+* Instantiate the Arm subsystem in the constructor of Robot.java.
+```
+    ...
+    public TrcMotor arm;
+    ...
+    public Robot(TrcRobot.RunMode runMode)
+    {
+        ...
+        if (RobotParams.Preferences.useSubsystems)
+        {
+            ...
+            if (RobotParams.Preferences.useArm)
+            {
+                arm = new Arm().getArmMotor();
+                // Zero calibrate the arm.
+                arm.zeroCalibrate(RobotParams.ARM_CAL_POWER);
+            }
+            ...
+        }
+        ...
+    }
+```
+* The Arm class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. In RobotParams.Preferences, add a switch so that we can enable/disable the subsystem. This is very useful during development because the subsystem may not exist yet. At the end of the RobotParam.java class, add the Arm subsystem section like below.
 
   The Arm consists of a DC motor with no limit switches. Therefore, we are using zero calibration by motor stall. Since the code above is using motor native close-loop control, the Software PID Control Coefficients section is not really required. It is there in case you want to change the code to use Software PID control instead.
 ```
+    public static class Preferences
+    {
+        ...
+        // Subsystems
+        public static boolean useSubsystems = true;
+        public static boolean useArm = true;
+        ...
+    }
+    ...
     //
     // Arm subsystem: All values below are just an example implementation, you need to change them to fit your subsystem
     // and tune some of the values (e.g. PID Coefficients).
