@@ -64,6 +64,7 @@ The following are the most commonly called methods provided by **TrcServo** whic
             if (RobotParams.Preferences.useWrist)
             {
                 wrist = new Wrist().getWristServo();
+                // Initialize the wrist position.
                 wrist.setPosition(RobotParams.WRIST_DOWN_POS);
             }
             ...
