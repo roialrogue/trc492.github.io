@@ -76,6 +76,26 @@ To understand the root cause of a bug, you need to trace through the code to fin
 
 ## Operating Subsystems In TeleOp Mode
 
+== Code Development Cycle ==
+# Analyze the problem
+# Come up with the pseudo-code to solve the problem
+# Run through all scenarios with the pseudo-code
+# Repeat the above steps until all scenarios are covered
+# Translate the pseudo-code to real code
+# Have somebody code review your code
+# Fully test and debug the code with all scenarios
+# Fix all the bugs found and repeat the above two steps until all bugs are fixed and the code works as expected.
+# Fully comment your code and add JavaDoc for all methods.
+
+## Code Development Process
+* **Think through the problem you are solving before starting to write code**: Don't start writing code right away. Think through and analyze the problem. Write down the problem on the whiteboard, draw diagrams, use whatever tools to help you visualize and understand the problem. Write down your solution in English (Pseudo-code). Go through the solution again and again for all possible scenarios until they are all covered. Then translating pseudo-code into real code should be super simple.
+* **Write maintainable code**: Choose appropriate variable and method names, write comments, and write useful commit notes. You're not just making life easier for others, you're making life easier for yourself next week when you can't remember what you were thinking. It's very important to comment your code in detail, especially if the code is doing something tricky. I assure you that you will be scratching head on why you did it that way weeks after you wrote the code. Even worse, if you no longer understand the reasons why you did it, you may be tempted to "fix it" that will break whatever that tricky code was trying to solve. If the purpose of a variable or method has changed, change its name to reflect the new purpose. Yes, you will need to change all references to it but don't be lazy. It is worst to read code that doesn't do what its name implied to do. Appropriately named variables and methods help you and others to understand the code better and faster.
+* **Fully test your code**: Don't just write the code and expect it to work without testing. Test all possible code paths. For example, if you write the code for the Blue Alliance and let auto-reflection to take care of the Red Alliance, you still need to test out the Red Alliance. There will be unexpected scenarios that either auto-reflection cannot handle, or you did not auto-reflect the code correctly.
+* **Have a mentor and/or a peer to code review your code**: Don't just write the code and expect it to work in all scenarios. Having a fresh pair of eyes to inspect your code will usually reveal scenarios that you forgot to handle. Also, in the process of explaining the code to somebody, you will usually find something wrong with your code.
+* **Think, don't guess**: When debugging, your first task is to root-cause the problem. Find out what's causing the unexpected behavior and why. Making guesses seems faster, but in the long run it is faster to slow down and find out why your code is behaving how it is: then you can be sure that the change you're making will actually fix your code. Patching a symptom (e.g. negating an input or sensor value) may seem to fix the problem, but I assure you that's WRONG. It may seem to fix the problem, but it will break something else that you are not expecting.
+* **Finish the software early**: You need to give enough time for the drivers to give you feedback so you can make corresponding changes. It's always tricky to finish software early because the robot is generally not finished early. Try to do whatever you can make progress without the real robot. If at all possible, try to make use of robots from previous seasons. For example, debugging autonomous pathing could be done with any previous robots as long as the code doesn't try to access non-existing subsystems. That's why our code makes use of subsystem switches that can selectively turn ON/OFF subsystems that don't exist. Always write your code assuming some subsystems may not exist (i.e. check if subsystems exist before trying to access them).
+* **Robot tuning**: Tune the robot early before competition. DO NOT TUNE THE ROBOT AT COMPETITION! If you do, it's guaranteed to be a stressful season.
+
 ## Creating Auto-Assist Tasks
 
 ## Creating Autonomous Code
