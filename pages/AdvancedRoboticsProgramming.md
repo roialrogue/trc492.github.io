@@ -6,6 +6,54 @@ Before you can start coding, you need to install the required software on your l
 * [FTC Programming Software Installation](https://trc492.github.io/pages/FtcProgrammingSoftwareInstallation.html)
 * [FRC Programming Software Installation](https://trc492.github.io/pages/FrcProgrammingSoftwareInstallation.html)
 
+## Code Development Cycle
+1. Analyze the problem
+1. Come up with the pseudo-code to solve the problem
+1. Run through all scenarios with the pseudo-code
+1. Repeat the above steps until all scenarios are covered
+1. Translate the pseudo-code to real code
+1. Have somebody code review your code
+1. Fully test and debug the code with all scenarios
+1. Fix all the bugs found and repeat the above two steps until all bugs are fixed and the code works as expected.
+1. Fully comment your code and add JavaDoc for all methods.
+
+## Code Development Process
+* **Think through the problem you are solving before starting to write code**: Don't start writing code right away. Think through and analyze the problem. Write down the problem on the whiteboard, draw diagrams, use whatever tools to help you visualize and understand the problem. Write down your solution in English (Pseudo-code). Go through the solution again and again for all possible scenarios until they are all covered. Then translating pseudo-code into real code should be super simple.
+* **Write maintainable code**: Choose appropriate variable and method names, write comments, and write useful commit notes. You're not just making life easier for others, you're making life easier for yourself next week when you can't remember what you were thinking. It's very important to comment your code in detail, especially if the code is doing something tricky. I assure you that you will be scratching head on why you did it that way weeks after you wrote the code. Even worse, if you no longer understand the reasons why you did it, you may be tempted to "fix it" that will break whatever that tricky code was trying to solve. If the purpose of a variable or method has changed, change its name to reflect the new purpose. Yes, you will need to change all references to it but don't be lazy. It is worst to read code that doesn't do what its name implied to do. Appropriately named variables and methods help you and others to understand the code better and faster.
+* **Fully test your code**: Don't just write the code and expect it to work without testing. Test all possible code paths. For example, if you write the code for the Blue Alliance and let auto-reflection to take care of the Red Alliance, you still need to test out the Red Alliance. There will be unexpected scenarios that either auto-reflection cannot handle, or you did not auto-reflect the code correctly.
+* **Have a mentor and/or a peer to code review your code**: Don't just write the code and expect it to work in all scenarios. Having a fresh pair of eyes to inspect your code will usually reveal scenarios that you forgot to handle. Also, in the process of explaining the code to somebody, you will usually find something wrong with your code.
+* **Think, don't guess**: When debugging, your first task is to root-cause the problem. Find out what's causing the unexpected behavior and why. Making guesses seems faster, but in the long run it is faster to slow down and find out why your code is behaving how it is. Then you can be sure that the change you're making will actually fix your code. Patching a symptom (e.g. negating an input or sensor value) may seem to fix the problem, but I assure you that's WRONG. It may seem to fix the problem, but it will break something else that you are not expecting.
+* **Finish the software early**: You need to give enough time for the drivers to give you feedback so you can make corresponding changes. It's always tricky to finish software early because the robot is generally not finished early. Try to do whatever you can make progress without the real robot. If at all possible, try to make use of robots from previous seasons. For example, debugging autonomous pathing could be done with any previous robots as long as the code doesn't try to access non-existing subsystems. That's why our code makes use of subsystem switches that can selectively turn ON/OFF subsystems that don't exist. Always write your code assuming some subsystems may not exist (i.e. check if subsystems exist before trying to access them).
+* **Robot tuning**: Tune the robot early before competition. DO NOT TUNE THE ROBOT AT COMPETITION! If you do, it's guaranteed to be a stressful season.
+
+## Debugging Process
+The following shows a list of typical bugs you will encounter:
+* **Code is crashing**: The code is causing an *Exception*. This is the most common and easiest type of bugs to fix because when an Exception occurs, you will get a stack dump which shows you the reason and the exact line of code that caused the Exception. It also shows you the history of calls leading to the code that caused the Exception.
+* **Code is hung in TeleOp**: The robot stopped responding to human input. 
+* **Code is hung in Autonomous**: This is typically caused by an asynchronous operation that never completed.
+* **Unexpected code behavior**: This is typically caused by logic error in the code.
+* **Robot lost communication**: This is generally an electrical issue caused by power interruption to the robot radio. The root cause may be in the wiring where the power wire/connector to the radio is not secured so that any impact to the robot will cause power to disconnect. In FTC, it is also commonly caused by Electrostatic Discharge (ESD). The FTC robot running on the field mat building up static electric charge and discharging to a metal object it hits. This caused the Control Hub to malfunction and disconnected WiFi.
+
+When the code does not work as expected, it needs to be debugged and fixed. It is often tempting for programmers to hypothesize the cause and formulate a hack without proving the actual cause. Sometimes the hack seems to address the symptom but most likely the wrong fix. For example, when the robot is going the opposite direction in autonomous, programmers often just find a place to negate a value to force the robot to go the correct direction without understanding why it was going the wrong way in the first place. The following video humorously describes that exact problem-solving mentality.
+
+[![Problem Solving](https://img.youtube.com/vi/IVmWh97H-OA/0.jpg)](https://www.youtube.com/watch?v=IVmWh97H-OA)
+
+In order to debug the code properly, you need to apply the following debugging process:
+1. Identify the code that was performing the unexpected operation.
+1. Trace that code to understand why it is performing the unexpected operation.
+1. Once the root cause is understood, formulate a proper fix and code it.
+1. Test the fix to prove that the code is now behaving properly.
+1. Make sure the fix works in all possible scenarios by running the fixed code in all code paths.
+1. If some scenarios are still not behaving correctly, repeat this process until everything works as expected.
+1. Before checking in the final fix, have a mentor/peer to code review the fix.
+1. Add detail comments in the code to explain the issue and how the fix remedy the problem.
+1. Check in the fix and add check-in notes on what the fix is for.
+
+To understand the root cause of a bug, you need to trace through the code to find out why it is behaving erroneously. There are three ways to trace through the code.
+* **Real Time Debugging**: Setting code breakpoints and trace through the code in real time. Generally, this is not a preferred way in robotics because if you trace through code that turns on a motor, the motor will remain on for the duration while you are tracing the code until the code turns the motor off. If the motor is controlling an arm or elevator, it would have gone beyond its position limit. This way is only desirable if the code doesn't involve anything that's time sensitive.
+* **Dashboard**: When the robot is not behaving as expected, you may want to check the state of the subsystems. The Framework Library provides a Dashboard mechanism allowing you to display the values of variables. For example, when the elevator is not moving while you command it to move using a joystick, the Dashboard may show that one of the limit switches is malfunctioning and preventing the elevator to move.
+* **Trace Logging**: Do a postmortem analysis of the trace log. The Framework Library provides Debug Tracing allowing you to log events and variable values to the debug console as well as in the log file. Even after the erroneous event happened, you can look through the trace log to understand what had happened exactly.
+
 ## TeleOp Driving Your Robot Right Out-Of-The-Box
 At this point, you should have installed all necessary software for developing robot code and also clone the robot template code from the GitHub repo. Since the template already contains basic code for three different kinds of robot base (Differential Drive, Mecanum Drive and Swerve Drive), it takes very few modifications to make it work with any of the three types of robots.
 
@@ -32,34 +80,6 @@ It is a good practice to create subsystems as separate Java classes that encapsu
 
 Since complex subsystems are very specific on their restrictions and what they can do, we are ...
 
-## Debugging Process
-The following shows a list of typical bugs you will encounter:
-* **Code is crashing**: The code is causing an *Exception*. This is the most common and easiest type of bugs to fix because when an Exception occurs, you will get a stack dump which shows you the reason and the exact line of code that caused the Exception. It also shows you the history of calls leading to the code that caused the Exception.
-* **Code is hung in TeleOp**: The robot stopped responding to human input. 
-* **Code is hung in Autonomous**: This is typically caused by an asynchronous operation that never completed.
-* **Unexpected code behavior**: This is typically caused by logic error in the code.
-* **Robot lost communication**: This is generally an electrical issue caused by power interruption to the robot radio. The root cause may be in the wiring where the power wire/connector to the radio is not secured so that any impact to the robot will cause power to disconnect. In FTC, it is also commonly caused by Electrostatic Discharge (ESD). The FTC robot running on the field mat building up static electric charge and discharging to a metal object it hits. This caused the Control Hub to malfunction and disconnected WiFi.
-
-When the code does not work as expected, it needs to be debugged and fixed. It is often tempting for programmers to hypothesize the cause and formulate a hack without proving the actual cause. Sometimes the hack seems to address the symptom but most likely the wrong fix. For example, when the robot is going the opposite direction in autonomous, programmers often just find a place to negate a value to force the robot to go the correct direction without understanding why it was going the wrong way in the first place. The following video humorously describes that exact problem-solving mentality.
-
-[![Problem Solving](https://img.youtube.com/vi/IVmWh97H-OA/0.jpg)](https://www.youtube.com/watch?v=IVmWh97H-OA)
-
-In order to debug the code properly, you need to apply the following debugging process:
-* Identify the code that was performing the unexpected operation.
-* Trace that code to understand why it is performing the unexpected operation.
-* Once the root cause is understood, formulate a proper fix and code it.
-* Test the fix to prove that the code is now behaving properly.
-* Make sure the fix works in all possible scenarios by running the fixed code in all code paths.
-* If some scenarios are still not behaving correctly, repeat this process until everything works as expected.
-* Before checking in the final fix, have a mentor/peer to code review the fix.
-* Add detail comments in the code to explain the issue and how the fix remedy the problem.
-* Check in the fix and add check-in notes on what the fix is for.
-
-To understand the root cause of a bug, you need to trace through the code to find out why it is behaving erroneously. There are three ways to trace through the code.
-* **Real Time Debugging**: Setting code breakpoints and trace through the code in real time. Generally, this is not a preferred way in robotics because if you trace through code that turns on a motor, the motor will remain on for the duration while you are tracing the code until the code turns the motor off. If the motor is controlling an arm or elevator, it would have gone beyond its position limit. This way is only desirable if the code doesn't involve anything that's time sensitive.
-* **Dashboard**:
-* **Trace Logging**: Do a postmortem analysis of the trace log. This involves adding trace logging code in appropriate places to log the values or states of the component you are debugging.
-
 ## Tuning Subsystems
 
 ### Scale and Offset
@@ -75,26 +95,6 @@ To understand the root cause of a bug, you need to trace through the code to fin
 ### PID
 
 ## Operating Subsystems In TeleOp Mode
-
-## Code Development Cycle
-* Analyze the problem
-* Come up with the pseudo-code to solve the problem
-* Run through all scenarios with the pseudo-code
-* Repeat the above steps until all scenarios are covered
-* Translate the pseudo-code to real code
-* Have somebody code review your code
-* Fully test and debug the code with all scenarios
-* Fix all the bugs found and repeat the above two steps until all bugs are fixed and the code works as expected.
-* Fully comment your code and add JavaDoc for all methods.
-
-## Code Development Process
-* **Think through the problem you are solving before starting to write code**: Don't start writing code right away. Think through and analyze the problem. Write down the problem on the whiteboard, draw diagrams, use whatever tools to help you visualize and understand the problem. Write down your solution in English (Pseudo-code). Go through the solution again and again for all possible scenarios until they are all covered. Then translating pseudo-code into real code should be super simple.
-* **Write maintainable code**: Choose appropriate variable and method names, write comments, and write useful commit notes. You're not just making life easier for others, you're making life easier for yourself next week when you can't remember what you were thinking. It's very important to comment your code in detail, especially if the code is doing something tricky. I assure you that you will be scratching head on why you did it that way weeks after you wrote the code. Even worse, if you no longer understand the reasons why you did it, you may be tempted to "fix it" that will break whatever that tricky code was trying to solve. If the purpose of a variable or method has changed, change its name to reflect the new purpose. Yes, you will need to change all references to it but don't be lazy. It is worst to read code that doesn't do what its name implied to do. Appropriately named variables and methods help you and others to understand the code better and faster.
-* **Fully test your code**: Don't just write the code and expect it to work without testing. Test all possible code paths. For example, if you write the code for the Blue Alliance and let auto-reflection to take care of the Red Alliance, you still need to test out the Red Alliance. There will be unexpected scenarios that either auto-reflection cannot handle, or you did not auto-reflect the code correctly.
-* **Have a mentor and/or a peer to code review your code**: Don't just write the code and expect it to work in all scenarios. Having a fresh pair of eyes to inspect your code will usually reveal scenarios that you forgot to handle. Also, in the process of explaining the code to somebody, you will usually find something wrong with your code.
-* **Think, don't guess**: When debugging, your first task is to root-cause the problem. Find out what's causing the unexpected behavior and why. Making guesses seems faster, but in the long run it is faster to slow down and find out why your code is behaving how it is: then you can be sure that the change you're making will actually fix your code. Patching a symptom (e.g. negating an input or sensor value) may seem to fix the problem, but I assure you that's WRONG. It may seem to fix the problem, but it will break something else that you are not expecting.
-* **Finish the software early**: You need to give enough time for the drivers to give you feedback so you can make corresponding changes. It's always tricky to finish software early because the robot is generally not finished early. Try to do whatever you can make progress without the real robot. If at all possible, try to make use of robots from previous seasons. For example, debugging autonomous pathing could be done with any previous robots as long as the code doesn't try to access non-existing subsystems. That's why our code makes use of subsystem switches that can selectively turn ON/OFF subsystems that don't exist. Always write your code assuming some subsystems may not exist (i.e. check if subsystems exist before trying to access them).
-* **Robot tuning**: Tune the robot early before competition. DO NOT TUNE THE ROBOT AT COMPETITION! If you do, it's guaranteed to be a stressful season.
 
 ## Creating Auto-Assist Tasks
 
