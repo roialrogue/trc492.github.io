@@ -76,16 +76,16 @@ To understand the root cause of a bug, you need to trace through the code to fin
 
 ## Operating Subsystems In TeleOp Mode
 
-== Code Development Cycle ==
-# Analyze the problem
-# Come up with the pseudo-code to solve the problem
-# Run through all scenarios with the pseudo-code
-# Repeat the above steps until all scenarios are covered
-# Translate the pseudo-code to real code
-# Have somebody code review your code
-# Fully test and debug the code with all scenarios
-# Fix all the bugs found and repeat the above two steps until all bugs are fixed and the code works as expected.
-# Fully comment your code and add JavaDoc for all methods.
+## Code Development Cycle
+* Analyze the problem
+* Come up with the pseudo-code to solve the problem
+* Run through all scenarios with the pseudo-code
+* Repeat the above steps until all scenarios are covered
+* Translate the pseudo-code to real code
+* Have somebody code review your code
+* Fully test and debug the code with all scenarios
+* Fix all the bugs found and repeat the above two steps until all bugs are fixed and the code works as expected.
+* Fully comment your code and add JavaDoc for all methods.
 
 ## Code Development Process
 * **Think through the problem you are solving before starting to write code**: Don't start writing code right away. Think through and analyze the problem. Write down the problem on the whiteboard, draw diagrams, use whatever tools to help you visualize and understand the problem. Write down your solution in English (Pseudo-code). Go through the solution again and again for all possible scenarios until they are all covered. Then translating pseudo-code into real code should be super simple.
