@@ -34,25 +34,25 @@ Since complex subsystems are very specific on their restrictions and what they c
 
 ## Debugging Subsystems
 
-### Displaying Subsystem Status On The DashBoard
+### DashBoard
 
-### Post Mortem Debugging Using Debug Tracing
+### Debug Tracing
 
 ### Real Time Debugging
 
 ## Tuning Subsystems
 
-### Tuning Scale and Offset
+### Scale and Offset
 
-### Tuning Gravity Compensation
+### Gravity Compensation
 
-### Tuning PID
+### PID
 
 ## Tuning Drive Base
 
-### Tuning Drive Base Odometry
+### Odometry
 
-### Tuning Drive Base PID
+### PID
 
 ## Operating Subsystems In TeleOp Mode
 
