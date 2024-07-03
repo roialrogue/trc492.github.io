@@ -60,16 +60,18 @@ The following are the most commonly called methods provided by **TrcServo** whic
     public static final boolean WRIST_SERVO_INVERTED            = false;
     public static final boolean WRIST_HAS_FOLLOWER_SERVO        = true;
     public static final boolean WRIST FOLLOWER_SERVO_INVERTED   = true;
+    public static final double WRIST_GEAR_RATIO                 = 90.0 / 30.0;  // 3:1
     // goBilda 5-turn servo: https://www.gobilda.com/2000-series-5-turn-dual-mode-servo-25-3-speed/
+    // Wrist rotates 1 turn, servo rotates 3 turns => 3/5 of the servo range.
     public static final double WRIST_SERVO_LOGICAL_MIN          = 0.0;
-    public static final double WRIST_SERVO_LOGICAL_MAX          = 1.0;
+    public static final double WRIST_SERVO_LOGICAL_MAX          = WRIST_GEAR_RATIO / 5.0 ;
     public static final double WRIST_SERVO_PHYSICAL_MIN         = 0.0;
-    public static final double WRIST_SERVO_PHYSICAL_MAX         = 5 * 360.0;    // in degrees
-    public static final double WRIST_SERVO_MAX_STEPRATE         = 115.0 * 360.0 / 60.0; // in degrees/sec
+    public static final double WRIST_SERVO_PHYSICAL_MAX         = 360.0;        // in degrees
+    public static final double WRIST_SERVO_MAX_STEPRATE         = 115.0 * 360.0 / 60.0 / WRIST_GEAR_RATIO;  // in degrees/sec
     // Preset positions.
     public static final double WRIST_PRESET_TOLERANCE           = 1.0;          // in deg
     // Presets array must be sorted in ascending order in the unit of deg
     public static final double[] WRIST_PRESETS                  = new double[] {
-        0.0, 360.0, 2*360.0, 3*360.0, 4*360.0
+        0.0, 60.0, 120.0, 180.0, 240.0, 300.0
     };
 ```
