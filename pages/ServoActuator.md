@@ -50,10 +50,40 @@ The following are the most commonly called methods provided by **TrcServo** whic
         }
     }
 ```
-* The Wrist class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Wrist subsystem section like below.
+* Instantiate the Wrist subsystem in the robotInit method of Robot.java.
+```
+    ...
+    public FtcServo wrist;
+    ...
+    public void robotInit()
+    {
+        ...
+        if (RobotParams.Preferences.useSubsystems)
+        {
+            ...
+            if (RobotParams.Preferences.useWrist)
+            {
+                wrist = new Wrist().getWristServo();
+                wrist.setPosition(RobotParams.WRIST_DOWN_POS);
+            }
+            ...
+        }
+        ...
+    }
+```
+* The code above is referencing a lot of constants from RobotParams.java. We need to define all those constants. In RobotParams.Preferences, add a switch so that we can enable/disable the subsystem. This is very useful during development because the subsystem may not exist yet. At the end of the RobotParam.java class, add the Wrist subsystem section like below.
 
   The wrist consists of two 5-turn servos mounted facing each other. That means the follower servo is inverted from the primary servo. Because of gear ratio, one turn of the wrist requires three turns of the servo. Since the servo is a 5-turn servo, it means one turn of the wrist would only require 3/5 of the logical range. Therefore, we limit our logical range to 0.0 and 0.6 and map it to a physical range of 0.0 to 360.0 degrees.
 ```
+    public static class Preferences
+    {
+        ...
+        // Subsystems
+        public static boolean useSubsystems = true;
+        public static boolean useWrist = true;
+        ...
+    }
+    ...
     //
     // Wrist subsystem: All values below are just an example implementation, you need to change them to fit your subsystem.
     //
@@ -70,6 +100,7 @@ The following are the most commonly called methods provided by **TrcServo** whic
     public static final double WRIST_SERVO_PHYSICAL_MIN         = 0.0;
     public static final double WRIST_SERVO_PHYSICAL_MAX         = 360.0;        // in degrees
     public static final double WRIST_SERVO_MAX_STEPRATE         = 115.0 * 360.0 / 60.0 / WRIST_GEAR_RATIO;  // in degrees/sec
+    public static final double WRIST_DOWN_POS                   = 0.0;
     // Preset positions.
     public static final double WRIST_PRESET_TOLERANCE           = 1.0;          // in deg
     // Presets array must be sorted in ascending order in the unit of deg
@@ -77,3 +108,4 @@ The following are the most commonly called methods provided by **TrcServo** whic
         0.0, 60.0, 120.0, 180.0, 240.0, 300.0
     };
 ```
+* Add
