@@ -50,7 +50,9 @@ The following are the most commonly called methods provided by **TrcServo** whic
         }
     }
 ```
-* The Wrist class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Wrist subsystem section like below:
+* The Wrist class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Wrist subsystem section like below.
+
+  The wrist consists of two 5-turn servos mounted facing each other. That means the follower servo is inverted from the primary servo. Because of gear ratio, one turn of the wrist requires three turns of the servo. Since the servo is a 5-turn servo, it means one turn of the wrist would only require 3/5 of the logical range. Therefore, we limit our logical range to 0.0 and 0.6 and map it to a physical range of 0.0 to 360.0 degrees.
 ```
     //
     // Wrist subsystem: All values below are just an example implementation, you need to change them to fit your subsystem.
