@@ -99,3 +99,7 @@ Since complex subsystems are very specific on their restrictions and what they c
 ## Creating Auto-Assist Tasks
 
 ## Creating Autonomous Code
+
+## Miscellaneous Tips and Tricks
+* How to increase the number of available buttons on your Gamepad?
+* Different ways of using Gamepad buttons
