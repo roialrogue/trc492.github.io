@@ -32,13 +32,33 @@ It is a good practice to create subsystems as separate Java classes that encapsu
 
 Since complex subsystems are very specific on their restrictions and what they can do, we are ...
 
-## Debugging Subsystems
+## Debugging Process
+The following shows a list of typical bugs you will encounter:
+* **Code is crashing**: The code is causing an *Exception*. This is the most common and easiest type of bugs to fix because when an Exception occurs, you will get a stack dump which shows you the reason and the exact line of code that caused the Exception. It also shows you the history of calls leading to the code that caused the Exception.
+* **Code is hung in TeleOp**: The robot stopped responding to human input. 
+* **Code is hung in Autonomous**: This is typically caused by an asynchronous operation that never completed.
+* **Unexpected code behavior**: This is typically caused by logic error in the code.
+* **Robot lost communication**: This is generally an electrical issue caused by power interruption to the robot radio. The root cause may be in the wiring where the power wire/connector to the radio is not secured so that any impact to the robot will cause power to disconnect. In FTC, it is also commonly caused by Electrostatic Discharge (ESD). The FTC robot running on the field mat building up static electric charge and discharging to a metal object it hits. This caused the Control Hub to malfunction and disconnected WiFi.
 
-### DashBoard
+When the code does not work as expected, it needs to be debugged and fixed. It is often tempting for programmers to hypothesize the cause and formulate a hack without proving the actual cause. Sometimes the hack seems to address the symptom but most likely the wrong fix. For example, when the robot is going the opposite direction in autonomous, programmers often just find a place to negate a value to force the robot to go the correct direction without understanding why it was going the wrong way in the first place. The following video humorously describes that exact problem-solving mentality.
 
-### Debug Tracing
+[![Problem Solving](https://img.youtube.com/vi/IVmWh97H-OA/0.jpg)](https://www.youtube.com/watch?v=IVmWh97H-OA)
 
-### Real Time Debugging
+In order to debug the code properly, you need to apply the following debugging process:
+* Identify the code that was performing the unexpected operation.
+* Trace that code to understand why it is performing the unexpected operation.
+* Once the root cause is understood, formulate a proper fix and code it.
+* Test the fix to prove that the code is now behaving properly.
+* Make sure the fix works in all possible scenarios by running the fixed code in all code paths.
+* If some scenarios are still not behaving correctly, repeat this process until everything works as expected.
+* Before checking in the final fix, have a mentor/peer to code review the fix.
+* Add detail comments in the code to explain the issue and how the fix remedy the problem.
+* Check in the fix and add check-in notes on what the fix is for.
+
+To understand the root cause of a bug, you need to trace through the code to find out why it is behaving erroneously. There are three ways to trace through the code.
+* **Real Time Debugging**: Setting code breakpoints and trace through the code in real time. Generally, this is not a preferred way in robotics because if you trace through code that turns on a motor, the motor will remain on for the duration while you are tracing the code until the code turns the motor off. If the motor is controlling an arm or elevator, it would have gone beyond its position limit. This way is only desirable if the code doesn't involve anything that's time sensitive.
+* **Dashboard**:
+* **Trace Logging**: Do a postmortem analysis of the trace log. This involves adding trace logging code in appropriate places to log the values or states of the component you are debugging.
 
 ## Tuning Subsystems
 
