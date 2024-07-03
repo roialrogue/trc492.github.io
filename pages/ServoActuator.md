@@ -50,7 +50,7 @@ The following are the most commonly called methods provided by **TrcServo** whic
         }
     }
 ```
-* The Arm class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Arm subsystem section like below:
+* The Wrist class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Wrist subsystem section like below:
 ```
     //
     // Wrist subsystem: All values below are just an example implementation, you need to change them to fit your subsystem.
