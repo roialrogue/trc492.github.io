@@ -230,14 +230,14 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
 * Operating the Arm Subsystem in TeleOp Mode
   * Determine how you want to control the Arm Subsystem. For example:
     * Assign the Y-axis of the right joystick on the Operator Gamepad to control the Arm moving up and down.
-    * Assign the Right Bumper of the Operator Gamepad as the "manual override" button where if it is pressed and held, the Arm will be moving with direct power using the joystick value. If the Right Bumpeer is not pressed, the Arm will be moving with the joystick value using PID control and therefore will slow down when approaching its lower or upper limits regardless of the joystick value.
+    * Assign the Right Bumper of the Operator Gamepad as the *operateAltFunc* button where if it is pressed and held, the Arm will be moving with direct power using the joystick value (manual override). If the Right Bumpeer is not pressed, the Arm will be moving with the joystick value using PID control and therefore will slow down when approaching its lower or upper limits regardless of the joystick value.
     * Assign the DPad Up/Down buttons on the Operator Gamepad to move the Arm to the next preset position up or down.
   * To control the Arm with an analog joystick, add code to the *periodic* method of **FtcTeleOp.java** like below. This code will periodically read the joystick value and use it to control how fast the Arm will move. There are two ways to control how fast the Arm will move: *setPower* and *setPidPower*. *setPower* applies direct power to the Arm motor with the joystick value. It does not understand *minPos* and *maxPos* and therefore will not stop or slow down at the lower or upper Arm limits. *setPidPower* applies power to the Arm motor with the joystick value. However, it understands *minPos* and *maxPos*. When it is approaching those limits, it will slow down the Arm movement regardless of the joystick value and will stop to make sure it never passes the limits.
   *  To step the Arm position up and down preset values, add code to the *operatorButtonEvent* method of **FtcTeleOp.java**. The Framework Library monitors button events and will call this method when a button is pressed or released. When the DPad Up is pressed, we will call the Arm to move to the next preset position up. When the DPad Down is pressed, we will call it to move to the next preset position down.
-  *  Also add code to the *operatorButtonEvent* method of **FtcTeleOp.java** for using Right Bumper button as Manual Override.
+  *  Also add code to the *operatorButtonEvent* method of **FtcTeleOp.java** for using Right Bumper button as *operatorAltFunc*.
 ```
     private double armPrevPower = 0.0;
-    private boolean manualOverride = false;
+    private boolean operatorAltFunc = false;
     ...
     public void periodic(double elapsedTime, boolean slowPeriodicLoop)
     {
@@ -255,9 +255,9 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
                 double armPower = operatorGamepad.getRightStickY(true) * RobotParams.ARM_POWER_SCALE;
                 if (armPower != armPrevPower)
                 {
-                    if (manualOverride)
+                    if (operatorAltFunc)
                     {
-                        // By definition, manualOverride should not observe any safety.
+                        // By definition, Manual Override should not observe any safety.
                         // Therefore, set arm power directly bypassing all safety checks.
                         robot.arm.setPower(armPower);
                     }
@@ -281,8 +281,8 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
         {
             ...
             case FtcGamepad.GAMEPAD_RBUMPER:
-                robot.globalTracer.traceInfo(moduleName, ">>>>> ManulOverride=" + pressed);
-                manualOverride = pressed;
+                robot.globalTracer.traceInfo(moduleName, ">>>>> operatorAltFunc=" + pressed);
+                operatorAltFunc = pressed;
                 break;
             case FtcGamepad.DPAD_UP:
                 // Check if arm is enabled.
