@@ -19,8 +19,8 @@ Once the drive base is fully operational, the next step is to create subsystems 
 * **[Pneumatic Actuator](https://trc492.github.io/pages/PneumaticActuator.html)**: Pnuematic Actuators are only legal for FRC but not FTC.
 * **[Intake](https://trc492.github.io/pages/Intake.html)**:
 * **[Conveyor](https://trc492.github.io/pages/Conveyor.html)**:
-* **[Shooter](https://trc492.github.io/pages/Shooter.html)**:
 * **[Grabber](https://trc492.github.io/pages/Grabber.html)**:
+* **[Shooter](https://trc492.github.io/pages/Shooter.html)**:
 * **[Vision](https://trc492.github.io/pages/Vision.html)**:
 
 ## Creating Complex Subsystems
