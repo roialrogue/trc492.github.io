@@ -96,7 +96,7 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
             // For FTC motors, the built-in PID Coefficients are generally good enough, so we don't need to set it. But for
             // FRC, you need to do a setPositionPidParameters here because the default Coefficients are probably zeros.
             //
-            armMotor.setPositionPidTolerance(RobotParams.SLIDE_TOLERANCE);
+            armMotor.setPositionPidTolerance(RobotParams.ARM_TOLERANCE);
             //
             // If you are using software PID control, uncomment the following section. Otherwise, comment it out.
             //
@@ -133,7 +133,9 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
         }
    }
 ```
-* The Arm class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Arm subsystem section like below:
+* The Arm class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Arm subsystem section like below.
+
+  The Arm consists of a DC motor with no limit switches. Therefore, we are using zero calibration by motor stall. Since the code above is using motor native close-loop control, the Software PID Control Coefficients section is not really required. It is there in case you want to change the code to use Software PID control instead.
 ```
     //
     // Arm subsystem: All values below are just an example implementation, you need to change them to fit your subsystem
@@ -159,12 +161,13 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     public static final double[] ARM_PRESETS                    = new double[] {
         30.0, 60.0, 90.0, 120, 150.0, 180.0, 210.0, 240.0, 270.0
     };
-    // PID Actuator parameters.
+    // Software PID Control Coefficients.
     public static final double ARM_KP                           = 0.0162;
     public static final double ARM_KI                           = 0.0;
     public static final double ARM_KD                           = 0.0;
     public static final double ARM_KF                           = 0.0;
     public static final double ARM_IZONE                        = 0.0;
+    
     public static final double ARM_TOLERANCE                    = 2.0;          // in deg
     public static final double ARM_MAX_GRAVITY_COMP_POWER       = 0.1675;       // in percentage power
     public static final double ARM_STALL_DETECTION_DELAY        = 0.5;          // in seconds
