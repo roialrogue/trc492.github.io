@@ -20,10 +20,10 @@ Congratulations! You have now successfully cloned the FrcTemplate repository.
 ## FRC Software Components
 To develop code for an FRC robot, you need to install the following software components:
 1. Visual Studio Code: [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE)
-2. WPILib: Software Library provided by FIRST and [Worchester Polytechnic Institute](https://www.wpi.edu/) (WPI)
-3. Git Command Line Tools: Git command line tools (plug-in for Visual Studio Code)
-4. FRC Game Tools (Optional): Include Driver Station Software and RoboRio Imaging tool
-5. 3rd-party Vendor Libraries: Libraries for 3rd party devices.
+1. WPILib: Software Library provided by FIRST and [Worchester Polytechnic Institute](https://www.wpi.edu/) (WPI)
+1. Git Command Line Tools: Git command line tools (plug-in for Visual Studio Code)
+1. FRC Game Tools (Optional): Include Driver Station Software and RoboRio Imaging tool
+1. 3rd-party Vendor Libraries: Libraries for 3rd party devices.
 
 ### Visual Studio Code
 WPILib includes a version of Visual Studio Code for FRC. Therefore, by installing WPILib as described below, Visual Studio Code will be installed.
