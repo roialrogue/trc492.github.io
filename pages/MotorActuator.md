@@ -33,8 +33,8 @@ The following are the most commonly called methods provided by **TrcMotor** whic
   * power applied to the motor is above or equal to *stallMinPower*.
   * motor has not moved or movement stayed within *stallTolerance* for at least *stallTimeout*.
 
-  Note: By definition, holding target position doing software PID control is stalling. If you decide to enable stall protection while holding target, please make sure to set a *stallMinPower* much greater than the power necessary to hold position against gravity. However, if you want to zero calibrate on motor stall (e.g. don't have lower limit switch), you want to make sure *calPower* is at least *stallMinPower*.
-* **setStallDetectionEnabled**: Enables/disables Stall Detection. This is independent and different from Stall Protection. You only need this if you want to zero calibrate the mechanism, but you don't have a lower limit switch. By enabling stall detection, the mechanism position will be reset when the motor is stalled during zero calibration.
+  Note: By definition, holding target position doing software PID control is stalling. If you decide to enable stall protection while holding target, please make sure to set a *stallMinPower* greater than the power necessary to hold position against gravity with margin. However, if you want to zero calibrate on motor stall (e.g. don't have lower limit switch), you want to make sure *calPower* is at least *stallMinPower*.
+* **setPidStallDetectionEnabled**: Enables/disables PID Controller Stall Detection. This is independent and different from Stall Protection. PID Stall Detection enables the PID controller to detect motor stall so that it will declare PID controlled operation done to prevent "*PID hang*" (i.e. If PID control is too weak to overcome static friction causing a *Steady State Error* larger than *Tolerance*, PID control will hang forever trying to get to target but can't). By detecting motor stall, PID control will declare *On Target* even though the PID error is outside of tolerance.
   * *stallDetectionDelay* specifies the amount of time to delay detecting stall condition in order to give time for the motor to start up.
   * *stallDetectionTimeout* specifies the amount of time that the motor is not moving, or the movement is below *stallErrorRateThreshold* before declaring motor stalled.
   * *stallErrorRateThreshold* specifies the amount of movement below which we considered the motor not moving.
@@ -64,7 +64,7 @@ The following are the most commonly called methods provided by **TrcMotor** whic
 * **setCurrentPidTolerance**: Sets the current tolerance for PID control in amperes.
 * **getCurrentOnTarget**: Checks if current PID control has reached target.
 * **setCurrentPidPowerComp**: Sets the power compensation callback of the motor's current PID controller.
-* **zeroCalibrate**: Starts zero calibration mode by moving the motor with specified calibration power until a limit switch is hit or the motor is stalled.
+* **zeroCalibrate**: Starts zero calibration mode by moving the motor with specified calibration power until a limit switch is hit or the motor is stalled (must enable *StallProtection* to perform zero calibration by motor stall).
 * **presetPositionUp**: Sets the motor to the next preset position up from the current position.
 * **presetPositionDown**: Sets the motor to the next preset position down from the current position.
 * **presetVelocityUp**: Sets the motor to the next preset velocity up or down from the current velocity.
@@ -107,7 +107,7 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
     //        // The getPowerComp method will be called every time when PID is calculating the power to be applied to the
     //        // arm. The PowerComp value will be added to the arm power to compensate for gravity.
     //        arm.setPositionPidPowerComp(this::getPowerComp);
-    //        armMotor.setStallDetectionEnabled(
+    //        armMotor.setPidStallDetectionEnabled(
     //            RobotParams.ARM_STALL_DETECTION_DELAY, RobotParams.ARM_STALL_DETECTION_TIMEOUT,
     //            RobotParams.ARM_STALL_ERR_RATE_THRESHOLD);
             armMotor.setStallProtection(
