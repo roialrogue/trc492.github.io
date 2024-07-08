@@ -133,7 +133,7 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
         }
    }
 ```
-* Instantiate the Arm subsystem in the constructor of Robot.java.
+* Create the Arm subsystem in the constructor of Robot.java.
 ```
     ...
     public TrcMotor arm;
@@ -304,3 +304,8 @@ Since all these subsystems are derivatives of the Motor Actuator, we will just s
         ...
     }
 ```
+* Determine Scale Factor and Offset
+* Setting Up Position Presets
+* Tuning PID
+* Stall Protection
+* PID Stall Detection
