@@ -20,8 +20,8 @@ Congratulations! You have now successfully cloned the FtcTemplate repository.
 
 ## FTC Software Components
 To develop code for an FTC robot, you need to install the following software components:
-1. Android Studio: [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE)
-1. Git Command Line Tools: Git command line tools (plug-in for Android Studio)
+1. Android Studio: [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE).
+1. Git Command Line Tools: Git command line tools provide plug-in for Android Studio.
 
 ### Android Studio
 To download and install Android Studio, go to this [website](https://developer.android.com/studio). Click the download Android Studio button and agree to their terms and conditions. Once the installer is downloaded, open it to start the installation. Generally, you can take all the default options it suggested unless you know what you are doing and want to customize the installation. Click “Finish” to start Android Studio. In the “Welcome to Android Studio” window, click the “Open” button and select the FtcTemplate folder where you cloned the GitHub repository.
