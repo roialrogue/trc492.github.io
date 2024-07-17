@@ -7,4 +7,4 @@ Titan Robotics Club (TRC) was started in 2001 competing in the *FIRST Robotics C
 ## Titan Robotics Framework
 * [Framework Library Features](https://trc492.github.io/pages/TrcLibFeatures.html)
 * [Advanced Robotics Programming](https://trc492.github.io/pages/AdvancedRoboticsProgramming.html)
-* [FRC Guildbook](https://trc492.github.io/pages/FRCGuidebook.html)
+* [FRC Guidebook](https://trc492.github.io/pages/FRCGuidebook.html)
