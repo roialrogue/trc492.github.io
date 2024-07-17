@@ -12,7 +12,7 @@ This is different than what WPILib and most other teams use. They use the **NWU*
 
 Therefore, make sure you check your math. For example, atan2 has a method signature of Math.atan2(double y, double x). However, in a lot of cases, you shouldn’t pass in x for x and y for y, since that will give you the complement of the angle you want (assuming you want angle from +y). You should do Math.atan2(x, y). To verify this, check by drawing diagrams and use trig.
 
-Additionally, if you ever use any code/math pulled from WPILib, you need to convert coordinate systems. This is because WPILib (and most other teams) use the NWU system. Check examples of system conversion in FrcSwervePathFollower and TrcDriveBase. (the updateOdometry method) To do this, you need to use what’s called a change of basis matrix, to convert from ENU to NWU, and vice versa. You should check the code for examples.
+Additionally, if you ever use any code/math pulled from WPILib, you need to convert coordinate systems. This is because WPILib (and most other teams) use the **NWU** system. Check examples of system conversion in FrcSwervePathFollower and TrcDriveBase. (the updateOdometry method) To do this, you need to use what’s called a change of basis matrix, to convert from **ENU** to **NWU**, and vice versa. You should check the code for examples.
  
 ## Tuning ##
 To do basically anything, you will have to tune controllers. PID/PIDF is the most common, and I’ll briefly cover a few tips/tricks on how to tune them.
