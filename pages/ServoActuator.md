@@ -22,7 +22,7 @@ The following are the most commonly called methods provided by **TrcServo** whic
 * **presetPositionUp**: Sets the servo to the next preset position up from the current position.
 * **presetPositionDown**: Sets the servo to the next preset position down from the current position.
 
-## Example: Create a Wrist Subsystem
+## Example: Create a Wrist Subsystem for FTC
 * Create a Java class in the subsystems folder (e.g. Wrist.java).
 ```
     public class Wrist
@@ -50,12 +50,44 @@ The following are the most commonly called methods provided by **TrcServo** whic
         }
     }
 ```
-* The Wrist class above is referencing a lot of constants from RobotParams.java. We need to define all those constants. At the end of the RobotParam.java class, add the Wrist subsystem section like below.
+* Instantiate the Wrist subsystem in the constructor of Robot.java.
+```
+    ...
+    public FtcServo wrist;
+    ...
+    public Robot(TrcRobot.RunMode runMode)
+    {
+        ...
+        if (RobotParams.Preferences.useSubsystems)
+        {
+            ...
+            if (RobotParams.Preferences.useWrist)
+            {
+                wrist = new Wrist().getWristServo();
+                // Initialize the wrist position.
+                wrist.setPosition(RobotParams.WRIST_DOWN_POS);
+            }
+            ...
+        }
+        ...
+    }
+```
+* The code above is referencing a lot of constants from RobotParams.java. We need to define all those constants. In RobotParams.Preferences, add a switch so that we can enable/disable the subsystem. This is very useful during development because the subsystem may not exist yet. At the end of the RobotParam.java class, add the Wrist subsystem section like below.
 
   The wrist consists of two 5-turn servos mounted facing each other. That means the follower servo is inverted from the primary servo. Because of gear ratio, one turn of the wrist requires three turns of the servo. Since the servo is a 5-turn servo, it means one turn of the wrist would only require 3/5 of the logical range. Therefore, we limit our logical range to 0.0 and 0.6 and map it to a physical range of 0.0 to 360.0 degrees.
 ```
+    public static class Preferences
+    {
+        ...
+        // Subsystems
+        public static boolean useSubsystems = true;
+        public static boolean useWrist = true;
+        ...
+    }
+    ...
     //
-    // Wrist subsystem: All values below are just an example implementation, you need to change them to fit your subsystem.
+    // Wrist subsystem:
+    // All values below are just an example implementation, you need to change them to fit your subsystem.
     //
     public static final String HWNAME_WRIST                     = "wrist";
     // Actuator parameters.
@@ -70,10 +102,107 @@ The following are the most commonly called methods provided by **TrcServo** whic
     public static final double WRIST_SERVO_PHYSICAL_MIN         = 0.0;
     public static final double WRIST_SERVO_PHYSICAL_MAX         = 360.0;        // in degrees
     public static final double WRIST_SERVO_MAX_STEPRATE         = 115.0 * 360.0 / 60.0 / WRIST_GEAR_RATIO;  // in degrees/sec
+    public static final double WRIST_DOWN_POS                   = 0.0;
+    public static final double WRIST_POWER_SCALE                = 1.0;          // operate the wrist at full speed.
     // Preset positions.
     public static final double WRIST_PRESET_TOLERANCE           = 1.0;          // in deg
     // Presets array must be sorted in ascending order in the unit of deg
     public static final double[] WRIST_PRESETS                  = new double[] {
         0.0, 60.0, 120.0, 180.0, 240.0, 300.0
     };
+```
+* To display Wrist Subsystem status in Dashboard, add code to the *updateStatus* method of **Robot.java**.
+```
+    public void updateStatus()
+    {
+        ...
+        if (wrist != null)
+        {
+            dashboard.displayPrintf(++lineNum, "Wrist: pos=" + wrist.getPosition());
+        }
+        ...
+    }
+``` 
+* Operating the Wrist Subsystem in TeleOp Mode
+  * Determine how you want to control the Wrist Subsystem. For example:
+    * Assign the Y-axis of the left joystick on the Operator Gamepad to control the Wrist moving up and down.
+    * Assign the DPad Up/Down buttons on the Operator Gamepad to move the Wrist to the next preset position up or down.
+  * To control the Wrist with an analog joystick, add code to the *periodic* method of **FtcTeleOp.java** like below. This code will periodically read the joystick value and use it to control how fast the Wrist will move.
+  *  To step the Wrist position up and down preset values, add code to the *operatorButtonEvent* method of **FtcTeleOp.java**. The Framework Library monitors button events and will call this method when a button is pressed or released. When the DPad Up is pressed, we will call the Wrist to move to the next preset position up. When the DPad Down is pressed, we will call it to move to the next preset position down. Note that if you also implemented an Arm from the previous section, DPad Up/Down buttons on the Operator Gamepad are already used by the Arm to step up/down its position. We could find another two buttons for that. But we can also apply a [trick](https://trc492.github.io/pages/AdvancedRoboticsProgramming.html#increase-the-number-of-available-buttons-on-your-gamepad) to overload the DPad up/down buttons. Since we already have an operatorAltFunc button defined in the Arm Subsystem section, we are going to use it in conjunction with the DPad Up/Down for controlling the Wrist stepping up and down.
+```
+    private double wristPrevPower = 0.0;
+    private boolean operatorAltFunc = false;
+    ...
+    public void periodic(double elapsedTime, boolean slowPeriodicLoop)
+    {
+        ...
+        //
+        // Other subsystems.
+        //
+        if (RobotParams.Preferences.useSubsystems)
+        {
+            // Wrist subsystem: only do this if the wrist is enabled.
+            if (robot.wrist != null)
+            {
+                // Send power value to the wrist if it is different from before.
+                // This prevents repeatedly sending zero power to the wrist if the joystick is not moved.
+                double wristPower = operatorGamepad.getRightStickY(true) * RobotParams.WRIST_POWER_SCALE;
+                if (wristPower != wristPrevPower)
+                {
+                    robot.wrist.setPower(wristPower);
+                    armPrevPower = armPower;
+                }
+            }
+            ...
+        }
+        ...
+    }
+    ...
+    protected void operatorButtonEvent(TrcGameController gamepad, int button, boolean pressed)
+    {
+        ...
+        switch (button)
+        {
+            ...
+            case FtcGamepad.GAMEPAD_RBUMPER:
+                robot.globalTracer.traceInfo(moduleName, ">>>>> operatorAltFunc=" + pressed);
+                operatorAltFunc = pressed;
+                break;
+            case FtcGamepad.DPAD_UP:
+                if (pressed)
+                {
+                    // Check if wrist is enabled.
+                    if (operatorAltFunc && robot.wrist != null)
+                    {
+                        robot.globalTracer.traceInfo(moduleName, ">>>>> Wrist Preset Up");
+                        robot.wrist.presetPositionUp(moduleName);
+                    }
+                    // Check if arm is enabled.
+                    else (!operatorAltFunc && robot.arm != null)
+                    {
+                        robot.globalTracer.traceInfo(moduleName, ">>>>> Arm Preset Up");
+                        robot.arm.presetPositionUp(moduleName, RobotParams.ARM_POWER_SCALE);
+                    }
+                }
+                break;
+            case FtcGamepad.DPAD_DOWN:
+                if (pressed)
+                {
+                    // Check if wrist is enabled.
+                    if (operatorAltFunc && robot.wrist != null)
+                    {
+                        robot.globalTracer.traceInfo(moduleName, ">>>>> Wrist Preset Down");
+                        robot.wrist.presetPositionDown(moduleName);
+                    }
+                    // Check if arm is enabled.
+                    else (!operatorAltFunc && robot.arm != null)
+                    {
+                        robot.globalTracer.traceInfo(moduleName, ">>>>> Arm Preset Down");
+                        robot.arm.presetPositionDown(moduleName, RobotParams.ARM_POWER_SCALE);
+                    }
+                }
+                break;
+        }
+        ...
+    }
 ```
