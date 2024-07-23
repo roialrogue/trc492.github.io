@@ -62,9 +62,9 @@ Since complex subsystems are very specific on their restrictions and what they c
 
 ### Analog Control Response
 Gamepad provides a number of analog controls (e.g. joysticks and triggers). These controls give you a continuous value between -1.0 to 1.0 (or between 0.0 to 1.0) depending on how hard you pushed the control. These controls will return to their *neutral positions* when you let go. However, some of them such as joysticks, may not quite return to zero position. They may leave a small residual value (e.g. 0.1). As a result, if the joystick is controlling the robot drive train, you may notice the robot is still slowly creeping forward when you let go the joystick. To deal with this, we typically define a *dead band* within which we will return a zero value. For example, if we define a dead band of 0.15 and the joystick reads a value of 0.12 at its *neutral position*, we will return a zero value instead.
-![image name](/images/JoystickResponse.png)
 
 Typically, to move a mechanism with an analog control, one would read the value and directly apply it as the motor power of the mechanism linearly. However, there are times when you want to have more precise control of the mechanism when it is in the slow range of motion. Therefore, instead of applying the value linearly, it may be beneficial to apply it with an exponential decay curve such as a *squared response curve*. This gives you a wider low range and will accelerate in the narrower high range. The following diagram shows the joystick input to output response curve incorporating dead band and square response.
+![image name](/images/JoystickResponse.png)
 
 ### Increase the number of available buttons on your Gamepad
 Gamepad buttons are scarce resources, but there is a trick to give us more buttons. This is basically similar to a computer keyboard or calculator keypad where you have the Alt button (or 2nd Func button). By pressing and holding the Alt button down, other buttons on the keyboard can have other functions.
