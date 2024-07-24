@@ -24,8 +24,8 @@ When the code is not behaving correctly, you need to apply the following debuggi
 1. Test the fix to prove that the code is now behaving properly.
 1. Make sure the fix works in all possible scenarios by running the fixed code in all code paths.
 1. If some scenarios are still not behaving correctly, repeat this process until everything works as expected.
-1. Before checking in the final fix, have a mentor/peer to code review the fix.
 1. Add detail comments in the code to explain the issue and how the fix remedy the problem.
+1. Before checking in the final fix, have a mentor/peer to code review the fix.
 1. Check in the fix and add check-in notes on what the fix is for.
 
 To understand the root cause of a bug, you need to trace through the code to find out why it is behaving erroneously. There are three ways to trace through the code.
