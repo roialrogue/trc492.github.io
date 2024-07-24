@@ -25,7 +25,7 @@ Once the code is fully tested and debugged, have a mentor and/or a peer to revie
 Once a bug is found, repeat the process of analyzing the problem, understanding the cause, coming up with a new fix, testing the fix and reviewing the fix until no more bug is found.
 
 ## Document Your Code
-Fully comment your code and add JavaDoc for all methods. The comment must add understanding to the code. Don't state the obvious because it doesn't add any value to the understanding. If the code is tricky, explain what it is trying to solve and how you solved it.
+Fully comment your code and add [JavaDoc](https://en.wikipedia.org/wiki/Javadoc#:~:text=Javadoc%20is%20a%20documentation%20generator,format%20from%20Java%20source%20code.) for all methods. The comment must add understanding to the code. Don't state the obvious because it doesn't add any value to the understanding. If the code is tricky, explain what it is trying to solve and how you solved it.
 
 ## Check In Your Code
 When checking in your code to the repository, do it incrementally and add detail explanation on what the check-in fixes. If something goes wrong with the code, you want to be able to look at the check-in log to figure out which fix might have broken the code and be able to back out a particular fix to prove it is indeed the culprit.
