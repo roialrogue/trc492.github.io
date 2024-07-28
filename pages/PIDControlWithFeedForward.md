@@ -22,6 +22,15 @@ One problem with P_Term alone is that if the error is becoming very small, the o
  ![image name](/images/Change_with_Ki.png)
 
 ### Derivative Term (D_Term)
+With the I_Term integrating past errors, there is a point when the windup power is about to overcome static friction. This will cause the robot to spring forward at abrupt velocity. To combat this problem, we introduce the D_Term. D_Term calculates the derivative of the error (aka error change rate - the inverse slope of the curve). If the robot springs forward, the error will decrease at a high rate. In other words, the D_Term will calculate a negative value. The higher rate of the decreasing error, the larger the negative value. In essence, the D_Term is suppressing the output power, in effect slowing the robot down and therefore making the spring forward gentler.
+
+ ![image name](/images/Change_with_Kd.png)
+
+### Tuning PID
+
+### PID Control Limitations
+
+### PID Power Compensation
 
 ## Feed Forward
 
@@ -30,4 +39,7 @@ One problem with P_Term alone is that if the error is becoming very small, the o
 ### KV (KF)
 
 ### KA
+
+## Putting It All Together
+
 
