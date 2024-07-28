@@ -20,11 +20,9 @@ One problem with P_Term alone is that if the error is becoming very small, the o
 
 ## Feed Forward
 
-### KF
-
 ### KS
 
-### KV
+### KV (KF)
 
 ### KA
 
