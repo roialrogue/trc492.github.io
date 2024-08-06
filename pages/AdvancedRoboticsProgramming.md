@@ -1,7 +1,5 @@
 # Advanced Robotics Programming
-This section focuses on our *Titan Robotics Framework* (TRC Library). The target audience is for students who already know the Java language. The Titan Robotics Framework is designed for both FTC and FRC. After finishing this section, you should be able to write code for both FTC and FRC robots with minimal platform specific changes.
-
-Before diving into code development, let's talk about ''Code Development Process''.
+This section focuses on our *Titan Robotics Framework* (TRC Library). The target audience is for students who already know the Java language. The Titan Robotics Framework is designed for both FTC and FRC. After finishing this section, you should be able to write code for both FTC and FRC robots with minimal platform specific changes using our Framework Library.
 
 ## Programming Software Installation
 Before you can start coding, you need to install the required software on your computer. Please take some time to do this at home. Software installation could be time consuming and requires downloading gigabytes of data from the Internet. Follow the instructions below for the software you need.
@@ -9,6 +7,7 @@ Before you can start coding, you need to install the required software on your c
 * [FRC Programming Software Installation](https://trc492.github.io/pages/FrcProgrammingSoftwareInstallation.html)
 
 ## Code Development Process
+Before diving into code development, you need to learn about ''Code Development Process''.
 * [Code Development Cycle](https://trc492.github.io/pages/CodeDevelopmentCycle.html)
 * [Debugging Process](https://trc492.github.io/pages/DebuggingProcess.html)
 
@@ -19,12 +18,13 @@ At this point, you should have installed all necessary software for developing r
 * [Driving FRC Swerve Drive Base in TeleOp](https://trc492.github.io/pages/FrcSwerveTeleOp.html)
 
 ## Basic Subsystems Provided by Titan Robotics Framework
-Once the drive base is fully operational, the next step is to create subsystems for the robot. Before diving into more complex subsystems, let's start with two fundamental subsystems: a '''Simple Motor''' and a '''Simple Servo'''.
+Once the drive base is fully operational, the next step is to create subsystems for the robot. Titan Robotics Framework provides supports for many basic simple subsystems as well as more complex subsystems.
 
-### Simple Motor
-Motor is the most fundamental component in a robot. It provides movement of mechanisms. There are many different types of motors with different capabilities. Some capabilities are built-in to the motor hardware. Some are provided by the ''Smart Motor Controller'' the motor is connected to. Smart Motor Controllers usually have their own microcontrollers running firmware at a higher frequency than the Robot Controller and can provide native close-loop control at a much higher resolution than software close-loop control running on the Robot Controller.    For example, some motors have built-in quadrature encoders. Encoders are sensors that keep track of the rotational position and velocity of the motor. Some encoders are even capable of registering absolute positions (i.e. absolute rotational position persists across power cycles - doesn't get clear across power cycles). Some capabilities are provided by Smart Motor Controllers the motors are connected to such as supporting limit switches. Limit switches provides protection against mechanisms travelling beyond their physical range limits. They will cut motor power if the mechanism hits the lower or upper physical limits. Some motor controllers provide hardware counters that count encoder pulses. 
+### Simple Subsystems
+* [Simple Motor](https://trc492.github.io/pages/SimpleMotor.html)
+* [Simple Servo](https://trc492.github.io/pages/SimpleServo.html)
 
-such as Elevator, Arm, Intake, Grabber etc. Even though the game of each season changes, a lot of subsystems repeat themselves season after season. Therefore, the Framework Library provides generalized basic subsystems to handle most of the scenarios. Here are some typical subsystems provided by the Framework Library.
+### Complex Subsystems
 * **[Motor Actuator](https://trc492.github.io/pages/MotorActuator.html)**: Motor is the most fundamental output device on a robot. It provides movements for mechanisms. Motor Actuators contain one or more motors, an encoder to keep track of its position and some limit switches to limit their movement. *FIRST* provided some basic motor classes (e.g. *DcMotor/DcMotorEx* for FTC and *Phoenix5/Phoenix6/SparkMax* for FRC). The Framework Library added a lot more features on top of that in the **TrcMotor** class. For example, it added support for a digital input sensor to reset the motor encoder automatically (limit switches). This is useful for using the motor in a complex actuator such as an arm or elevator when you may need to zero calibrate the zero position of the actuator using a lower limit switch. It also added support to provide velocity control and motor odometry. On top of the fundamental motor features, it also provided PID Controlled functionality. It can support either native motor close-loop control (position and velocity PID control) or software PID control in case some motors do not support native close-loop control (e.g. continuous servos). **TrcMotor** added support for lower and upper limit switches, motor stall protection for safety, multiple motors with synchronization (motor followers), zero position calibration, gravity compensation and much more. These advanced features made it trivial to implement complex subsystems such as swing arm, elevator, slide or pan and tilt. The built-in PIDF controller allows the arm or elevator to be controlled by an analog joystick to speed up or slow down the arm/elevator movement. It understands the arm/elevator position approaching the lower/upper position limits and will automatically slow down its movement. It also provides stall protection. If the PID Actuator got stuck and the motor is stalled, it can cut motor power to prevent it from burning out. It also allows a reset timeout so that the stall condition can be cleared after a certain period assuming the stall condition is caused by human temporarily. This allows the subsystem to resume its function and provides time for the motor to cool down. In addition, it also supports voltage compensation. It understands battery voltage drop and can compensate the power level sent to the motor.
 * **[Servo Actuator](https://trc492.github.io/pages/ServoActuator.html)**: With the limited number of motors allowed by FTC, servos become the secondary most important actuator on a robot. The Framework Library provides extended support of servo in the **TrcServo** class over *FIRST* provided SDK. It supports translation between logical servo positions (between the value of 0.0 and 1.0) to physical positions such as 0.0 to 180.0 degrees. Just like motors, it also allows you to invert the direction of the servo movement. In addition, it provides features to support multiple servos (followers) driving the same mechanism. Most importantly, it allows speed controlling a servo so you can control it by an analog joystick or simply slow down its movement.
 * **[Pneumatic Actuator](https://trc492.github.io/pages/PneumaticActuator.html)**: Pnuematic Actuators are only legal for FRC but not FTC.
@@ -34,6 +34,11 @@ such as Elevator, Arm, Intake, Grabber etc. Even though the game of each season 
 * **[Shooter](https://trc492.github.io/pages/Shooter.html)**:
 * **[Vision](https://trc492.github.io/pages/Vision.html)**:
 
+
+
+such as Elevator, Arm, Intake, Grabber etc. Even though the game of each season changes, a lot of subsystems repeat themselves season after season. Therefore, the Framework Library provides generalized basic subsystems to handle most of the scenarios. Here are some typical subsystems provided by the Framework Library.
+* **
+* **
 ## Creating Complex Subsystems
 The above section talked about how to create simple subsystems using *Basic Subsystems* provided by the Framework Library. In this section, we will talk about creating complex subsystems that consist of multiple Basic subsystems and will support complex operations.
 
