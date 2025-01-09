@@ -5,8 +5,8 @@ This section focuses on our *Titan Robotics Framework* (TRC Library). The target
 ![image name](/images/TRCLibArchitecture.png)
 
 ## Framework Library JavaDoc
-* [FTC JavaDoc](https://github.com/trc492/FtcJavaDoc/main/index.html)
-* [FRC JavaDoc](https://github.com/trc492/FrcJavaDoc/main/index.html)
+* [FTC JavaDoc](https://trc492.github.io/FtcJavaDoc/index.html)
+* [FRC JavaDoc](https://trc492.github.io/FrcJavaDoc/index.html)
 
 ## Programming Software Installation
 Before you can start coding, you need to install the required software on your computer. Please take some time to do this at home. Software installation could be time consuming and requires downloading gigabytes of data from the Internet. Follow the instructions below for the software you need.
