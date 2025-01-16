@@ -1,10 +1,35 @@
-# Welcome to Titan Robotics Club
-Titan Robotics Club is a middle and high school robotics program at the International School in Bellevue, Washington. We aim to spread awareness and raise interest within our school and our community about robotics and the programs of **FIRST** (**F**or **I**nspiration and **R**ecognition of **S**cience and **T**echnology). As part of the annual *FIRST Robotics Competition*, *FIRST Tech Challenge* and *FIRST Lego League*, our team of around 100 students work with field professionals and adult mentors to earn valuable life experience with robotics, technology and science. You can learn more about us at our [official website](http://www.titanrobotics.com).
+---
+title: Home
+layout: home
+---
 
-## History of our Open Source Projects on GitHub
-Titan Robotics Club (TRC) was started in 2001 competing in the *FIRST Robotics Competition* (FRC). Starting in the FRC season 2007-2008, the Club decided to develop the Titan Robotics Framework Library (TrcLib) and to make the library open source. At the time, we were using Mercurial as our source control and was hosting the source code on our own Linux server. In 2010, we switched to use Git as our source control and have moved all our repositories to GitHub to free ourselves from maintaining our own source control server. With over a decade of development, TrcLib has become a feature rich Robotics Library. At the beginning, the library was written in C for FRC. In 2009, the Club added the *FIRST Tech Challenge* program (FTC). TrcLib was then ported to RobotC, the programming language for the LEGO Mindstorm platform used by FTC. In 2015, with the introduction of the Android platform in FTC, the Club switched to use Java as the programming language for both FTC and FRC. TrcLib was then rewritten in Java so that the majority of the Library code can be shared between FTC and FRC. At the time of this writing (2021), TrcLib has grown to over 20,000 lines of code with over 12,000 lines shared between FTC and FRC. Aside from the repositories of the FTC and FRC competition seasons, we also created many useful projects on GitHub. In 2016, we created the [TrcFtcSamples](https://github.com/trc492/TrcFtcSamples) repository including lots of sample code helping other FTC teams who decided to use our TrcLib for FTC. This enables rookie teams to write relatively advanced code without too much effort. With that, we also created [JavaDoc](https://trc492.github.io/FtcJavaDoc/) for TrcLib. The recent addition of the [FtcTemplate](https://github.com/trc492/FtcTemplate) and [FrcTemplate](https://github.com/trc492/FrcTemplate) repositories enables FTC and FRC teams to quickly create their own code repository for the new season with the latest copy of TrcLib as well as the FTC/FRC SDK for the season. In the FtcTemplate/FrcTemplate repositories, they comes with basic robot code for three different drive bases (*Differential Drive Base, Mecanum Drive Base and Swerve Drive Base*) with ready to drive TeleOp code.
+This is a *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
 
-## Robotics Programming Resources
-* [Titan Robotics Framework Library Features](https://trc492.github.io/pages/TrcLibFeatures.html)
-* [Advanced Robotics Programming](https://trc492.github.io/pages/AdvancedRoboticsProgramming.html)
-* [FRC Guidebook](https://trc492.github.io/pages/FRCGuidebook.html)
+If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+
+More specifically, the created site:
+
+- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
+- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+
+Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+
+[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+
+To get started with creating a site, simply:
+
+1. click "[use this template]" to create a GitHub repository
+2. go to Settings > Pages > Build and deployment > Source, and select GitHub Actions
+
+If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
+
+----
+
+[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+
+[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
+[GitHub Pages]: https://docs.github.com/en/pages
+[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
+[Jekyll]: https://jekyllrb.com
+[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
+[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
