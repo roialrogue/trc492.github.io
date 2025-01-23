@@ -1,4 +1,4 @@
-title: Titan Robotics Club
+title: TRC Docs
 description: Official Documentation of the Titan Robotics Club 492
 theme: just-the-docs
 exclude: ["Gemfile", "Gemfile.lock", "LICENSE"]
@@ -27,18 +27,24 @@ gh_edit_branch: "main" # the branch that your docs is served from
 gh_edit_view_mode: "edit" # "tree" or "edit" if you want the user to jump into the editor immediately
 
 # Callouts
+callouts_level: quiet # or loud
 callouts:
+  highlight:
+    color: yellow
+  important:
+    title: Important
+    color: blue
+  new:
+    title: New
+    color: green
+  note:
+    title: Note
+    color: purple
   warning:
     title: Warning
     color: red
 
 # Collections
-
-
-
-just_the_docs:
-  collections:
-
 
 
 liquid:

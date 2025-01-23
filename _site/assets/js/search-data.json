@@ -1,23 +1,156 @@
 {"0": {
+    "doc": "Advanced Multitasking",
+    "title": "Advanced Multitasking",
+    "content": " ",
+    "url": "/trclib/AdvMulti/",
+    
+    "relUrl": "/trclib/AdvMulti/"
+  },"1": {
+    "doc": "Data Filters & Processors",
+    "title": "Data Filters & Processors",
+    "content": " ",
+    "url": "/trclib/DataFilter/",
+    
+    "relUrl": "/trclib/DataFilter/"
+  },"2": {
+    "doc": "Drive Base",
+    "title": "Drive Base",
+    "content": " ",
+    "url": "/trclib/DriveBase/",
+    
+    "relUrl": "/trclib/DriveBase/"
+  },"3": {
+    "doc": "Drive Base Odometry",
+    "title": "Drive Base Odometry",
+    "content": " ",
+    "url": "/trclib/DriveOdom/",
+    
+    "relUrl": "/trclib/DriveOdom/"
+  },"4": {
+    "doc": "Exclusive Subsystem",
+    "title": "Exclusive Subsystem",
+    "content": " ",
+    "url": "/trclib/ExclusiveSubsys/",
+    
+    "relUrl": "/trclib/ExclusiveSubsys/"
+  },"5": {
+    "doc": "FtcOpMode",
+    "title": "FtcOpMode",
+    "content": "FtcOpMode . FtcOpMode is our custom opmode extending LinearOpMode while providing an interface similar to OpMode where you write your code in a loop method. It functions as a cooperative multi-tasking scheduler, enabling multiple subsystems to operate simultaneously. This is essential for the FTC 30-second autonomous period, allowing tasks without dependencies to run concurrently. Key features include: . | Cooperative and multi-threaded true multi-tasking. | Simplified execution of multiple autonomous tasks. | Integration with state machines for task management. | . ",
+    "url": "/trclib/FtcOpMode/",
+    
+    "relUrl": "/trclib/FtcOpMode/"
+  },"6": {
+    "doc": "Inputs",
+    "title": "Inputs",
+    "content": " ",
+    "url": "/trclib/Input/",
+    
+    "relUrl": "/trclib/Input/"
+  },"7": {
+    "doc": "Motor Odometry",
+    "title": "Motor Odometry",
+    "content": " ",
+    "url": "/trclib/MotorOdom/",
+    
+    "relUrl": "/trclib/MotorOdom/"
+  },"8": {
+    "doc": "Outputs",
+    "title": "Outputs",
+    "content": " ",
+    "url": "/trclib/Output/",
+    
+    "relUrl": "/trclib/Output/"
+  },"9": {
+    "doc": "Pathing Following",
+    "title": "Pathing Following",
+    "content": " ",
+    "url": "/trclib/PathingFollow/",
+    
+    "relUrl": "/trclib/PathingFollow/"
+  },"10": {
+    "doc": "PIDF Control",
+    "title": "PIDF Control",
+    "content": " ",
+    "url": "/trclib/PidFControl/",
+    
+    "relUrl": "/trclib/PidFControl/"
+  },"11": {
+    "doc": "State Machine",
+    "title": "State Machine",
+    "content": "State Machine . The state machine infrastructure forms the core of multi-tasking by tracking task states. It allows FtcOpMode to switch between tasks, maintaining their states when resumed from a suspended state. Task Synchronization . The Framework Library supports task synchronization for dependencies between tasks through: . | Events (TrcEvent): Signal task completion. | Callbacks (TrcEvent.Callback): Perform additional work upon task completion. | . FtcOpMode . FtcOpMode is our custom opmode extending LinearOpMode while providing an interface similar to OpMode where you write your code in a loop method. It functions as a cooperative multi-tasking scheduler, enabling multiple subsystems to operate simultaneously. This is essential for the FTC 30-second autonomous period, allowing tasks without dependencies to run concurrently. Key features include: . | Cooperative and multi-threaded true multi-tasking. | Simplified execution of multiple autonomous tasks. | Integration with state machines for task management. | . ",
+    "url": "/trclib/StateMachine/",
+    
+    "relUrl": "/trclib/StateMachine/"
+  },"12": {
+    "doc": "Task Sync",
+    "title": "Task Sync",
+    "content": " ",
+    "url": "/trclib/TaskSync/",
+    
+    "relUrl": "/trclib/TaskSync/"
+  },"13": {
+    "doc": "Timer",
+    "title": "Timer",
+    "content": " ",
+    "url": "/trclib/Timer/",
+    
+    "relUrl": "/trclib/Timer/"
+  },"14": {
+    "doc": "Util",
+    "title": "Util",
+    "content": " ",
+    "url": "/trclib/Util/",
+    
+    "relUrl": "/trclib/Util/"
+  },"15": {
+    "doc": "Vision",
+    "title": "Vision",
+    "content": " ",
+    "url": "/trclib/Vision/",
+    
+    "relUrl": "/trclib/Vision/"
+  },"16": {
     "doc": "Home",
     "title": "Titan Robotics Club 492 Docs",
     "content": "Titan Robotics Club is a middle and high school robotics program at the International School in Bellevue, Washington. We aim to spread awareness and raise interest within our school and our community about robotics and the programs of FIRST (For Inspiration and Recognition of Science and Technology). As part of the annual FIRST Robotics Competition , FIRST Tech Challenge and FIRST Lego League , our team of around 100 students work with field professionals and adult mentors to earn valuable life experience with robotics, technology and science. You can learn more about us at our official website. ",
     "url": "/#titan-robotics-club-492-docs",
     
     "relUrl": "/#titan-robotics-club-492-docs"
-  },"1": {
+  },"17": {
     "doc": "Home",
     "title": "History of our Open Source Projects on GitHub",
     "content": "Titan Robotics Club (TRC) was started in 2001 competing in the FIRST Robotics Competition (FRC). Starting in the FRC season 2007-2008, the Club decided to develop the Titan Robotics Framework Library (TrcLib) and to make the library open source. At the time, we were using Mercurial as our source control and was hosting the source code on our own Linux server. In 2010, we switched to use Git as our source control and have moved all our repositories to GitHub to free ourselves from maintaining our own source control server. With over a decade of development, TrcLib has become a feature rich Robotics Library. At the beginning, the library was written in C for FRC. In 2009, the Club added the FIRST Tech Challenge program (FTC). TrcLib was then ported to RobotC, the programming language for the LEGO Mindstorm platform used by FTC. In 2015, with the introduction of the Android platform in FTC, the Club switched to use Java as the programming language for both FTC and FRC. TrcLib was then rewritten in Java so that the majority of the Library code can be shared between FTC and FRC. At the time of this writing (2021), TrcLib has grown to over 20,000 lines of code with over 12,000 lines shared between FTC and FRC. Aside from the repositories of the FTC and FRC competition seasons, we also created many useful projects on GitHub. In 2016, we created the TrcFtcSamples repository including lots of sample code helping other FTC teams who decided to use our TrcLib for FTC. This enables rookie teams to write relatively advanced code without too much effort. With that, we also created JavaDoc for TrcLib. The recent addition of the FtcTemplate and FrcTemplate repositories enables FTC and FRC teams to quickly create their own code repository for the new season with the latest copy of TrcLib as well as the FTC/FRC SDK for the season. In the FtcTemplate/FrcTemplate repositories, they comes with basic robot code for three different drive bases (Differential Drive Base, Mecanum Drive Base and Swerve Drive Base) with ready to drive TeleOp code. ",
     "url": "/#history-of-our-open-source-projects-on-github",
     
     "relUrl": "/#history-of-our-open-source-projects-on-github"
-  },"2": {
+  },"18": {
     "doc": "Home",
     "title": "Home",
     "content": " ",
     "url": "/",
     
     "relUrl": "/"
+  },"19": {
+    "doc": "TRC Lib Framework",
+    "title": "Overview",
+    "content": " ",
+    "url": "/trclib/overview/#overview",
+    
+    "relUrl": "/trclib/overview/#overview"
+  },"20": {
+    "doc": "TRC Lib Framework",
+    "title": "Titan Robotics Framework Library",
+    "content": ". The TRC Library is packed with powerful features designed to simplify and enhance your robotics programming experience. The following subpages provide an overview of some of the key capabilities and tools included in the library: . ",
+    "url": "/trclib/overview/#titan-robotics-framework-library",
+    
+    "relUrl": "/trclib/overview/#titan-robotics-framework-library"
+  },"21": {
+    "doc": "TRC Lib Framework",
+    "title": "TRC Lib Framework",
+    "content": " ",
+    "url": "/trclib/overview/",
+    
+    "relUrl": "/trclib/overview/"
   }
 }
