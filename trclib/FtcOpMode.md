@@ -7,7 +7,6 @@ nav_order: 1
 ---
 
 ### FtcOpMode
-{:toc}
 
 FtcOpMode is our custom opmode extending `LinearOpMode` while providing an interface similar to `OpMode` where you write your code in a loop method. It functions as a cooperative multi-tasking scheduler, enabling multiple subsystems to operate simultaneously. This is essential for the FTC 30-second autonomous period, allowing tasks without dependencies to run concurrently.
 

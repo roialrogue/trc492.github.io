@@ -1,35 +1,35 @@
 {"0": {
     "doc": "Advanced Multitasking",
     "title": "Advanced Multitasking",
-    "content": " ",
+    "content": "Advanced Multi-Tasking . In addition to cooperative multi-tasking, our Framework Library also supports multi-threaded tasks. The Library provides several standard threads, including: . | Main Robot Thread – Runs the FtcOpMode, where the scheduler performs cooperative multi-tasking. | IO Thread – Handles all input tasks (e.g., reading sensors and odometry) and output tasks (e.g., motor and actuator control, including PID control and pathing). | . For specialized needs, such as high-frequency processing that cannot tolerate latency or long-running tasks that could block the main thread, the Library enables the creation of standalone tasks with their own threads. All tasks and threads are managed by the Task Manager (TrcTaskMgr). Multi-Threading Considerations . While all built-in Library components are thread-safe, caution is required when writing multi-threaded code. Avoid common pitfalls like: . | Shared resource contention – Ensure proper synchronization when accessing shared resources. | Task synchronization – Prevent race conditions and deadlocks by properly managing task dependencies. | . If you’re unfamiliar with multi-threaded programming, it’s best to stick with cooperative multi-tasking. Even then, follow these best practices: . | Do not block the main robot thread. Avoid busy-wait loops and sleep statements. Instead, start an operation and exit immediately. | Use asynchronous operations. Most Library functions are non-blocking and provide mechanisms to signal or notify task completion. | Leverage state machines. Your state machine should handle waiting for operations to complete, ensuring smooth cooperative multi-tasking. | . By following these principles, your tasks will efficiently share processing time, enabling a well-coordinated and responsive robot system. ",
     "url": "/trclib/AdvMulti/",
     
     "relUrl": "/trclib/AdvMulti/"
   },"1": {
     "doc": "Data Filters & Processors",
     "title": "Data Filters & Processors",
-    "content": " ",
+    "content": "Data Filters and Processors . In the real world, sensor data often contains noise, which can negatively impact robot control. The Framework Library provides a suite of data filters and converters to clean up sensor readings and improve accuracy. Data Filters . The Library includes several popular filtering techniques to reduce noise in sensor readings: . | IIR (Infinite Impulse Response) filters | Kalman filters | Spurious filters | . These filters help smooth out fluctuations in sensor data, making it more reliable for real-time robot control. Data Converters . The Framework Library also provides data converters for specific sensor-related challenges, such as: . | Data Integration – Some gyros only provide rotational rate rather than absolute heading. The Library offers a data integrator to calculate heading by integrating rotational rate over time. | Non-Contiguous Value Handling – Certain sensors, such as gyros and compasses, report values that suddenly “jump” at specific points. For example: . | The REV IMU gyro transitions from 179° to -180°. | A compass shifts from 359° back to 0°. | . These discontinuities can disrupt control algorithms. The Library provides a value converter that detects and corrects such transitions, ensuring a smooth, continuous data scale. | . By leveraging these filters and processors, the Framework Library enhances sensor accuracy and stability, leading to more precise and reliable robot control. ",
     "url": "/trclib/DataFilter/",
     
     "relUrl": "/trclib/DataFilter/"
   },"2": {
     "doc": "Drive Base",
     "title": "Drive Base",
-    "content": " ",
+    "content": "Drive Base . The Framework Library supports three types of drive bases: . | Simple Differential Drive Base (TrcSimpleDriveBase) | Mecanum Drive Base (TrcMecanumDriveBase) | Swerve Drive Base (TrcSwerveDriveBase) | . All drive bases include built-in kinematics, odometry, and localization. This means the library can utilize wheel encoders and a gyro sensor to track the robot’s absolute field location, combining sensor readings for precise movement control. The library also supports passive-wheel odometry (dead-wheel odometry), allowing 2-4 passive omniwheels with encoders to track the robot’s absolute position. All odometry data is scaled to real-world units (e.g., inches instead of encoder counts). Advanced Drive Features . | Stall Detection: Detects when the drive base is stuck (e.g., hitting an obstacle or a field wall). This can be used to relocalize the robot by resetting its position. | Multiple Drive Strategies: Supports tankDrive, arcadeDrive, and curveDrive. | Holonomic Drive Support: Available for Mecanum and Swerve drive bases (holonomicDrive). | Field-Oriented Driving: Allows the robot to move in any direction, independent of heading. | Gyro-Assist Driving: Uses a gyro sensor to maintain a straight path, compensating for weight imbalances or uneven wheel friction. | . Drive Base Types . 1. Simple Differential Drive Base (TrcSimpleDriveBase) . | Supports 2 to 6 motors (left and right sides, each with 1-3 motors). | No strafing ability (i.e., no holonomicDrive support). | Suitable for traditional tank-drive robots. | . 2. Mecanum Drive Base (TrcMecanumDriveBase) . | Utilizes 4 mecanum wheels, each with its own motor. | Supports holonomic drive, allowing strafing in any direction. | . 3. Swerve Drive Base (TrcSwerveDriveBase) . | Uses 4 swerve wheel modules, each consisting of: . | 1 drive motor | 1 steering motor (can be a DC motor or continuous servo). | . | Each swerve module can be independently steered, enabling movement in any direction, even while maintaining a different heading. | . The Framework Library’s drive base support provides powerful motion control, enabling precise, efficient, and flexible robot movement. ",
     "url": "/trclib/DriveBase/",
     
     "relUrl": "/trclib/DriveBase/"
   },"3": {
     "doc": "Drive Base Odometry",
     "title": "Drive Base Odometry",
-    "content": " ",
+    "content": "Drive Base Odometry . Our drive base odometry supports both drive motor odometry and passive wheel odometry (Passive Odometry Pods). This allows us to calculate the robot’s absolute field location using: . | Drive Motor Odometry: Reads from either the drive motors or passive wheels. | Gyro Heading: Incorporates gyro heading for accurate localization. | . This combination ensures precise positioning of the robot within the field. ",
     "url": "/trclib/DriveOdom/",
     
     "relUrl": "/trclib/DriveOdom/"
   },"4": {
     "doc": "Exclusive Subsystem",
     "title": "Exclusive Subsystem",
-    "content": " ",
+    "content": "Exclusive Subsystem . A robot consists of multiple subsystems (e.g., drive base, elevator, shooter, intake, vision). During TeleOp mode, most of these can be manually controlled by the human operator. However, some auto-assist operations also require access to these subsystems. The Problem: Conflicting Controls . Consider a vision-assisted shooter that: . | Stops the drive base. | Captures an image for vision processing. | Calculates the shooting trajectory. | Spins up the shooter to the correct speed. | Adjusts the shooter’s pan and tilt to aim. | Fires at the target. | . Since multiple subsystems are involved, conflicts can arise between auto-assist operations and manual TeleOp control. For example, if a joystick-controlled tilting mechanism is also being adjusted by auto-assist aiming, both controls send conflicting commands, resulting in jerky movement. The Solution: Exclusive Subsystem Control . To prevent conflicts, a subsystem can be declared as an Exclusive Subsystem. | Before an auto-assist operation begins, it acquires exclusive ownership of the subsystem. | While owned, only the auto-assist operation can control the subsystem—TeleOp commands are ignored. | Once the auto-assist operation is complete, ownership is released, allowing TeleOp control to resume. | . This mechanism ensures smooth, uninterrupted operation for both TeleOp and auto-assist modes, eliminating interference and unintended behavior. The Exclusive Subsystem feature provides seamless coordination between manual control and automated operations, enhancing robot performance. ",
     "url": "/trclib/ExclusiveSubsys/",
     
     "relUrl": "/trclib/ExclusiveSubsys/"
@@ -43,70 +43,70 @@
   },"6": {
     "doc": "Inputs",
     "title": "Inputs",
-    "content": " ",
+    "content": "Inputs . The Framework Library supports a variety of input devices, including gamepad controllers, sensors, and the driver station dashboard. Gamepad Controller . The Framework Library monitors all gamepad buttons for state changes. Any button press or release triggers an event callback to your button event handler, significantly simplifying your TeleOp code. Sensors . The Framework Library supports numerous sensor types, including: . | Digital sensors | Analog sensors | I2C sensors | Android built-in sensors | . Popular sensors include ultrasonic sensors, color sensors, distance sensors (e.g., LiDAR), gyros, accelerometers, touch sensors, IR seekers, and Pixy cameras. The Library also supports multiple communication protocols (I2C, Serial, SPI, etc.), enabling you to develop custom sensor drivers for devices not natively supported. Driver Station Dashboard . The Framework Library provides easy access to the driver station as an input device. It allows you to create: . | Choice Menus (FtcChoiceMenu) – Used for selecting predefined options. | Value Menus (FtcValueMenus) – Used for inputting numerical values. | . These menus enable pre-match configurations, such as: . | Selecting RED or BLUE Alliance. | Choosing a starting position. | Setting a delayed autonomous start to avoid collisions. | Enabling or skipping specific autonomous tasks. | . The Choice and Value menus form a decision tree, allowing users to make selections using the gamepad buttons before a match starts. ",
     "url": "/trclib/Input/",
     
     "relUrl": "/trclib/Input/"
   },"7": {
     "doc": "Motor Odometry",
     "title": "Motor Odometry",
-    "content": " ",
+    "content": "Motor Odometry . Motor odometry tracks motor position and velocity in real-world units (e.g., inches) instead of encoder counts. If the motor does not provide native velocity reports, our library calculates the velocity for you. Key features include: . | Performance Optimization: The library is highly optimized and supports Lynx Bulk Caching mode, reading motor odometry only once per robot loop for improved performance. | Built-in Performance Monitors: These help diagnose and debug any performance issues. | . ",
     "url": "/trclib/MotorOdom/",
     
     "relUrl": "/trclib/MotorOdom/"
   },"8": {
     "doc": "Outputs",
     "title": "Outputs",
-    "content": " ",
+    "content": "Outputs . The Framework Library supports various output devices, including motors, servos, lights, and sound. Motors . Motors are fundamental to robot movement. While the FTC SDK provides basic motor classes (e.g., DcMotor, DcMotorEx), the Framework Library extends functionality with multiple layers of enhancements: . | FtcDcMotor (extends TrcMotor) – Adds support for digital input sensors, automatically resetting motor encoders using limit switches. | Velocity Mode Control &amp; Motor Odometry – Enhances movement tracking and control. | PID Control Support – Allows native motor closed-loop control (position/velocity PID) or software PID control for motors lacking built-in PID (e.g., continuous servos). | Advanced Safety Features: . | Limit switches (upper/lower bounds) | Motor stall protection – Prevents burnout by cutting power if the motor stalls. | Motor synchronization – Supports multi-motor setups with leader-follower configurations. | Gravity compensation – Adjusts power output based on arm/elevator positioning. | Voltage compensation – Adjusts for battery voltage drops to maintain consistent performance. | . | . These features make it easy to implement complex actuators like swing arms and elevators while ensuring safety and efficiency. Servos . Servos are crucial actuators, especially given FTC’s motor limit. The Framework Library enhances servo control beyond the FTC SDK: . | Logical-to-Physical Position Mapping – Converts values between 0-1 range to degrees (0°-180°). | Direction Inversion – Allows reversing servo movement. | Servo Follower Support – Synchronizes multiple servos. | Continuous Servo Control – Includes optional encoder support. | Speed Control – Enables analog joystick control for smooth movement. | . Lights (LEDs) . The Library supports various LED configurations, from simple single-color LEDs to RGB LED strips and REV Blinkin controllers. Key Features: . | Robot Status Feedback – LEDs change colors based on robot state (e.g., vision detection, intake status). | Priority Scheme (TrcPriorityIndicator) – Prevents LED conflicts by assigning priority levels to different events. | LED Matrix Panel Support – More common in FRC, as FTC power/electronics limitations apply. | . While LEDs enhance aesthetics, their primary use is real-time feedback for drivers. Sound . Although REV Robot Controller Hub lacks built-in sound, sound support is redirected to the Driver Station. Features: . | Beep Alerts – Signals important robot events (e.g., motor stall protection). | Text-to-Speech – Provides audible status updates to drivers. | . Like LEDs, sound alerts improve driver awareness, ensuring quick responses to critical robot states. By supporting advanced motor control, servo enhancements, LED feedback, and sound alerts, the Framework Library enables precise and efficient robot operation. ",
     "url": "/trclib/Output/",
     
     "relUrl": "/trclib/Output/"
   },"9": {
     "doc": "Pathing Following",
     "title": "Pathing Following",
-    "content": " ",
+    "content": "Path Following . Our framework supports Pure Pursuit Drive path following, enabling the robot to follow: . | Pre-Planned Paths: Navigate to targets with predefined paths. | Dynamically Generated Paths: Create paths in real-time based on data from vision systems. This is especially useful when the robot is navigating to dynamically detected targets. | . Path following is essential for tasks like autonomous navigation and targeting in competitions. ",
     "url": "/trclib/PathingFollow/",
     
     "relUrl": "/trclib/PathingFollow/"
   },"10": {
     "doc": "PIDF Control",
     "title": "PIDF Control",
-    "content": " ",
+    "content": "PIDF Control . In addition to supporting native motor close-loop control, our framework library also provides software PIDF control with several advanced features: . | PIDF Components: Supports Proportional (P), Integral (I), Derivative (D), and Feedforward (F) components. | iZone: Adds a zone where the integral component is disabled to prevent integral windup. | Target Tolerance: Understands target tolerance and handles steady-state error (e.g., stalling). | Absolute vs. Relative Target: Supports both absolute and relative setpoints for flexibility. | Oscillation Prevention: Prevents overshooting by stopping once the controller exceeds tolerance. | Ramp Rate: Allows control over the ramp rate of close-loop control. | Stall Detection: Detects stalls due to steady-state error and aborts control to avoid infinite loops. | Power Limits: Supports setting maximum power limits for close-loop control. | . These advanced features make PIDF control suitable for handling complex robotic subsystems, ensuring smooth and efficient operation. ",
     "url": "/trclib/PidFControl/",
     
     "relUrl": "/trclib/PidFControl/"
   },"11": {
     "doc": "State Machine",
     "title": "State Machine",
-    "content": "State Machine . The state machine infrastructure forms the core of multi-tasking by tracking task states. It allows FtcOpMode to switch between tasks, maintaining their states when resumed from a suspended state. Task Synchronization . The Framework Library supports task synchronization for dependencies between tasks through: . | Events (TrcEvent): Signal task completion. | Callbacks (TrcEvent.Callback): Perform additional work upon task completion. | . FtcOpMode . FtcOpMode is our custom opmode extending LinearOpMode while providing an interface similar to OpMode where you write your code in a loop method. It functions as a cooperative multi-tasking scheduler, enabling multiple subsystems to operate simultaneously. This is essential for the FTC 30-second autonomous period, allowing tasks without dependencies to run concurrently. Key features include: . | Cooperative and multi-threaded true multi-tasking. | Simplified execution of multiple autonomous tasks. | Integration with state machines for task management. | . ",
+    "content": "State Machine . The state machine infrastructure forms the core of multi-tasking by tracking task states. It allows FtcOpMode to switch between tasks, maintaining their states when resumed from a suspended state. ",
     "url": "/trclib/StateMachine/",
     
     "relUrl": "/trclib/StateMachine/"
   },"12": {
     "doc": "Task Sync",
     "title": "Task Sync",
-    "content": " ",
+    "content": "Task Synchronization . The Framework Library supports task synchronization for dependencies between tasks through: . | Events (TrcEvent): Signal task completion. | Callbacks (TrcEvent.Callback): Perform additional work upon task completion. | . ",
     "url": "/trclib/TaskSync/",
     
     "relUrl": "/trclib/TaskSync/"
   },"13": {
     "doc": "Timer",
     "title": "Timer",
-    "content": " ",
+    "content": "Timers . The Timer Manager (TrcTimer) manages multiple simultaneous timers. When a timer expires, you have the option of signaling an event or performing an event callback. For example, if you want to spin a motor for 3 seconds and turn it off afterward, you can arm a timer that expires in 3 seconds and execute an event callback to turn the motor off. This type of operation is sometimes called “fire and forget.” . ",
     "url": "/trclib/Timer/",
     
     "relUrl": "/trclib/Timer/"
   },"14": {
     "doc": "Util",
     "title": "Util",
-    "content": " ",
+    "content": "Util . The Framework Library provides trace logging for debugging and performance analysis during robot matches. This tool is invaluable for post-mortem analysis. | Log Levels: . | VERBOSE: Detailed logging for debugging. | DEBUG: Logs for in-depth analysis. | INFO: General match information. | WARNING: Logs for potential issues. | ERROR: Logs errors. | FATAL: Logs critical errors that halt the robot. | . | . By adjusting the logging level, you can tailor the output to your needs—use INFO for competition logs or DEBUG/VERBOSE for troubleshooting. ",
     "url": "/trclib/Util/",
     
     "relUrl": "/trclib/Util/"
   },"15": {
     "doc": "Vision",
     "title": "Vision",
-    "content": " ",
+    "content": "Vision . Vision plays a crucial role in tasks such as navigating the robot to specific locations or shooting game elements at targets. Our library supports multiple vision libraries to handle different levels of complexity: . | Supported Libraries: TensorFlow, AprilTag, OpenCV, and more. | Asynchronous Processing: We wrap these libraries with easy-to-use interfaces that support asynchronous image processing, ensuring the main robot thread remains free for other tasks. | Vision Complexity: From color blob detection to machine learning object recognition, the library supports a wide range of vision tasks. | . By offloading the heavy lifting to industrial libraries and enabling asynchronous processing, we ensure smooth performance during vision-based operations. ",
     "url": "/trclib/Vision/",
     
     "relUrl": "/trclib/Vision/"
