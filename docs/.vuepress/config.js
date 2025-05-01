@@ -3,8 +3,8 @@ import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
 
 export default defineUserConfig({
-  title: 'Trc Library Documentation',
-  description: 'Documentation for our FTC library',
+  title: 'TrcLib Documentation',
+  description: 'Documentation for the Titan Robotics Framework library',
   head: [
     ['link', { rel: 'icon', href: '/favicon/favicon.png' }],
   ],

@@ -8,12 +8,20 @@ Please make sure to take note of the following before continuing!
 **1.** The target audience for this framework is students who already have a solid understanding of the Java language. While it's not required, I highly recommend being familiar with the basics of the FTC SDK, since the Trc Framework is built on top of it.
 :::
 
-::: note
-**2.** This document is designed to provide practical insights and real-world setup and tuning experiences from the developers of the framework. It’s not required to set up the Trc Framework. For experienced users, the library is fully documented with [JavaDocs]((https://trc492.github.io/FtcJavaDoc/index.html)).
+::: important
+**2.** It’s highly recommended that you read both the [Code Development Cycle](#code-develpment-cycle) and [Debugging Process](#debugging-process) sections. They’ll give you a solid understanding of how to approach writing and debugging your code effectively.
+:::
+
+::: tip 
+**3.** Using `.xml` files, you can create a hardwareMap configuration. It’s highly recommended to set this up it makes editing easier, helps catch setup errors, and prevents hardware map issues like losing your configuration when scanning for new devices. You can learn how to set it up [here](#setup-hardwaremap)!
 :::
 
 ::: caution 
 Please don’t try to set up TrcLib right before a competition—it won’t go well. Trust me, I’ve tried it. Even if you’re highly proficient with the FTC SDK, give yourself plenty of time to get familiar with everything.
+:::
+
+::: note
+This document is designed to provide practical insights and real-world setup and tuning experiences from the developers of the framework. It’s not required to set up the Trc Framework. For experienced users, the library is fully documented with [JavaDocs](https://trc492.github.io/FtcJavaDoc/index.html).
 :::
 
 ## Code Develpment Cycle
@@ -94,3 +102,6 @@ The following shows a list of typical bugs you will encounter:
 * **Unexpected code behavior**: This is typically caused by logic error in the code. Making use of the Dashboard or Debug Tracing to identify where in the code it was performing the erroneous operation. Once the code location is identified, trace through the logic to figure out why it is performing the erroneous operation. Once the problem is understood, formulate a proper fix considering all corner cases.
 
 * **Robot lost communication**: This is generally an electrical issue caused by power interruption to the robot radio. The root cause may be in the wiring where the power wire/connector to the radio is not secured or the routing of the wires is too taut so that any impact to the robot will cause power to disconnect. In FTC, it is also commonly caused by Electrostatic Discharge (ESD). The FTC robot running on the field mat building up static electric charge and discharging to a metal object it hits. This caused the Control Hub to malfunction and disconnected WiFi. Examining the wire path powering the radio and make sure it has sufficient slack. Also examine the power and network connectors to make sure they are securely plugged in and have strain relief. For the ESD problem in FTC, make sure the [Resistive Ground Strap](https://www.revrobotics.com/rev-31-1269/) is installed.
+
+## Setup HardwareMap
+
