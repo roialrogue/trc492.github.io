@@ -1,13 +1,14 @@
+import { viteBundler } from '@vuepress/bundler-vite'
 import { defaultTheme } from '@vuepress/theme-default'
-import { webpackBundler } from '@vuepress/bundler-webpack'
+import { defineUserConfig } from 'vuepress'
 
-export default {
+export default defineUserConfig({
   title: 'Trc Library Documentation',
   description: 'Documentation for our FTC library',
   head: [
     ['link', { rel: 'icon', href: '/favicon/favicon.png' }],
   ],
-  bundler: webpackBundler(),
+  bundler: viteBundler(),
   theme: defaultTheme({
     logo: '/assets/logo.png',
     sidebar: {
@@ -46,4 +47,4 @@ export default {
     editLink: false,
     searchPlaceholder: 'Search...',
   }),
-}
+})
