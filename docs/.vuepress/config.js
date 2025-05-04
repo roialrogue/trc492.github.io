@@ -1,6 +1,7 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
+import container from '@vuepress/plugin-container'
 
 export default defineUserConfig({
   title: 'TrcLib Documentation',
@@ -47,4 +48,12 @@ export default defineUserConfig({
     editLink: false,
     searchPlaceholder: 'Search...',
   }),
+
+  plugins: [
+    container({
+      type: 'files',
+      before: () => '<pre class="files">',
+      after: () => '</pre>',
+    }),
+  ],
 })
