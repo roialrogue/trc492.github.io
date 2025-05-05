@@ -14,8 +14,16 @@
 
 ### Roller Intake
 
-### Differentail Wrist 
+### Differentail Servo Wrist 
+
+### Differentail Motor Wrist 
 
 ### Shooter
 
 ### Conveyor
+
+## Support Subsystems
+
+### LEDIndicator
+
+### RumbleIndicator 

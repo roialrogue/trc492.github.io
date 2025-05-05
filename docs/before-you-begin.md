@@ -13,7 +13,11 @@ Please make sure to take note of the following before continuing!
 :::
 
 ::: tip 
-**3.** Using `.xml` files, you can create a hardwareMap configuration. It’s highly recommended to set this up it makes editing easier, helps catch setup errors, and prevents hardware map issues like losing your configuration when scanning for new devices. You can learn how to set it up [here](#setup-hardwaremap)!
+**3.** Using `.xml` files, you can create a hardwareMap configuration. It’s recommended to set this up it makes editing easier, helps catch setup errors, and prevents hardware map issues like losing your configuration when scanning for new devices. You can learn how to set it up [here](#setup-hardwaremap)!
+:::
+
+::: tip
+**4.** In the software industry, code is never committed to the main branch unless it has been fully tested and debugged. We recommend following this industry standard by [creating a `dev` branch](#branch-setup--management), where you can safely commit untested code. There’s nothing worse than making a bad commit to your GitHub right before a competition or an important practice day.
 :::
 
 ::: caution 
@@ -104,4 +108,6 @@ The following shows a list of typical bugs you will encounter:
 * **Robot lost communication**: This is generally an electrical issue caused by power interruption to the robot radio. The root cause may be in the wiring where the power wire/connector to the radio is not secured or the routing of the wires is too taut so that any impact to the robot will cause power to disconnect. In FTC, it is also commonly caused by Electrostatic Discharge (ESD). The FTC robot running on the field mat building up static electric charge and discharging to a metal object it hits. This caused the Control Hub to malfunction and disconnected WiFi. Examining the wire path powering the radio and make sure it has sufficient slack. Also examine the power and network connectors to make sure they are securely plugged in and have strain relief. For the ESD problem in FTC, make sure the [Resistive Ground Strap](https://www.revrobotics.com/rev-31-1269/) is installed.
 
 ## Setup HardwareMap
+
+## Branch Setup & Management
 
