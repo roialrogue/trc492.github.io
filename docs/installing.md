@@ -25,6 +25,7 @@ If you have already cloned FtcTemplate, you will first need to disconnect your c
 <p style="text-align: center;">
   <img src="/images/GitHubDesktopFileClone.png" alt="Centered image" width="712" style="border-radius: 12px;"/>
 </p>
+
 6. Under the "GitHub.com" tab, find the repository you just forked and click on it. Please note that Windows may suggest cloning into your OneDrive folder. Unless you pay for large storage on OneDrive, we recommend changing the location to your local hard drive. For example:
 
 ```
@@ -33,8 +34,8 @@ If you have already cloned FtcTemplate, you will first need to disconnect your c
 <p style="text-align: center;">
   <img src="/images/GitHubFtcTemplateClone.png" alt="Centered image" width="712" style="border-radius: 12px;"/>
 </p>
-6. Click the Clone button.
-Congratulations! You have now successfully cloned the FtcTemplate repository.
+
+7. Click the Clone button. Congratulations! You have now successfully cloned the FtcTemplate repository. To open your project in Android Studio, use the section labeled "Open the repository in your external editor." Use the Options button to select Android Studio, then click "Open in Android Studio."
 
 ::: note
 If GitHub Desktop asks you "How are you planning to use this fork?" select "For my own purposes" and click Continue.

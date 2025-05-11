@@ -109,15 +109,4 @@ The following shows a list of typical bugs you will encounter:
 
 ## Setup HardwareMap
 
-## Branch Setup & Management
-
-Using Branches to mange your code is very powerful, but when not used correctly they become a massive headakes. In this section we are going to cover the reason for using branches and how to use them in the most effect way possible.
-
-Why use github branches? Branches allow you to work on new software, bug fixes, and edit without effect the main codebase. This is so powerfule because it let you protect your "main" branch or main code base while still implimneting new code. Inside of the context of FIRST robotics branches let you work on new software impliments (Any type of software edits) without any wrisk of branching your main robot code base. 
-
-### Branch Setup
-
-By defult after cloning the FtcTemplate you will have a `main`, and `SampleCode` branch. You should the think of your `main` branch almost like it is a code valut you dont want any code in there that is not vauble and working. You should never check directly into the `main` branch instead you should make `dev` branches this is where inicizlize check in your written code whunces your code if FULLY TESTED your code has no bugs, and it is writeen to be as effect as possible. Then you can push the code to the main branch, you always want your 'main' bracnh to be working and have the most stable code. 
-
-
 

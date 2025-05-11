@@ -1,5 +1,6 @@
 # Node dependencies
 node_modules/
+dist/
 .pnp/
 .pnp.js
 
@@ -13,8 +14,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # VuePress build output
-.vuepress/.cache/
-.vuepress/.temp/
+config.js*.mjs
 docs/.vuepress/.cache/
 docs/.vuepress/.temp/
 

@@ -30,6 +30,11 @@ export default defineUserConfig({
           collapsible: false,
         },
         {
+          text: 'Github',
+          link: '/github-basics',
+          collapsible: false,
+        },
+        {
           text: 'FtcTemplate Structure',
           link: '/template-structure',
           collapsible: false,
