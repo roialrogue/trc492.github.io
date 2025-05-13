@@ -9,7 +9,7 @@ We use [GitHub](https://en.wikipedia.org/wiki/GitHub) Desktop as our [source con
 1. Log in to GitHub or create an account if you do not already have one ([link here](https://GitHub.com)).
 2. Navigate [to FtcTemplate](https://github.com/trc492/FtcTemplate) and click the "Fork" button.
 <p style="text-align: center;">
-  <img src="/images/GitHubFtcTemplateForkHighlight.png" alt="Centered image" width="712" style="border-radius: 12px;"/>
+  <img src="/images/GitHubFtcTemplateFork.png" alt="Centered image" width="712" style="border-radius: 12px;"/>
 </p>
 3. You are now on the "Create a new fork" page. You need to fill in a title (e.g., `3830-IntoTheDeep2025`) and a description if you would like. After you finish, click "Create fork".
 <p style="text-align: center;">
