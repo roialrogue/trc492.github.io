@@ -6,7 +6,7 @@ import container from '@vuepress/plugin-container'
 export default defineUserConfig({
   title: 'TrcLib Documentation',
   description: 'Documentation for the Titan Robotics Framework library',
-  base: '/',
+  base: '/trc492.github.io/',//This should be '/' when hosted on a non forked repo
   head: [
     ['link', { rel: 'icon', href: '/favicon/favicon.png' }],
   ],
