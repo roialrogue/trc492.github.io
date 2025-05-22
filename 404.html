@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.20" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      const useChoice = localStorage.getItem('vuepress-color-scheme')
+      const systemStatus =
+        'matchMedia' in window
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : false
+
+      if (useChoice === 'light') {
+        document.documentElement.dataset.theme = 'light'
+      } else if (useChoice === 'dark' || systemStatus) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    </script>
+    <link rel="icon" href="/favicon/favicon.png"><title>TrcLib Documentation</title><meta name="description" content="Documentation for the Titan Robotics Framework library">
+    <link rel="preload" href="/assets/style-DzmRuW7i.css" as="style"><link rel="stylesheet" href="/assets/style-DzmRuW7i.css">
+    <link rel="modulepreload" href="/assets/app-C0EXnKUC.js"><link rel="modulepreload" href="/assets/404.html-D0Zgvt0Z.js">
+    <link rel="prefetch" href="/assets/advanced-subsystem-concepts.html-DpmlNvUu.js" as="script"><link rel="prefetch" href="/assets/before-you-begin.html-BoZOSw1c.js" as="script"><link rel="prefetch" href="/assets/creating-subsystems.html-vAC533mZ.js" as="script"><link rel="prefetch" href="/assets/github-basics.html-B4hnGVl2.js" as="script"><link rel="prefetch" href="/assets/index.html-KiIvj7ZM.js" as="script"><link rel="prefetch" href="/assets/installing.html-BTy7RaBg.js" as="script"><link rel="prefetch" href="/assets/template-structure.html-DacS2CCK.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="vp-theme-container" vp-container data-v-ec9917b8><main class="page" data-v-ec9917b8><div vp-content data-v-ec9917b8><h1 data-v-ec9917b8>404</h1><blockquote data-v-ec9917b8>There&#39;s nothing here.</blockquote><a class="route-link" href="/" data-v-ec9917b8>Take me home</a></div></main></div><!--[--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-C0EXnKUC.js" defer></script>
+  </body>
+</html>
