@@ -6,6 +6,7 @@ import container from '@vuepress/plugin-container'
 export default defineUserConfig({
   title: 'TrcLib Documentation',
   description: 'Documentation for the Titan Robotics Framework library',
+  base: '/',
   head: [
     ['link', { rel: 'icon', href: '/favicon/favicon.png' }],
   ],
