@@ -17,7 +17,7 @@ We use [GitHub](https://en.wikipedia.org/wiki/GitHub) Desktop as our [source con
 </p>
 
 ::: warning
-If you have already cloned FtcTemplate, you will first need to disconnect your current fork before reforking. To do this, navigate to your current forked repo, go to *Settings->Danger Zone->Leave* fork network (the Danger Zone is located at the bottom of the main settings page). Follow the verification steps to disconnect the fork, and you're all set — now follow the directions as before.
+If you have already forked FtcTemplate, you will first need to disconnect your current fork before reforking. To do this, navigate to your current forked repo, go to *Settings->Danger Zone->Leave* fork network (the Danger Zone is located at the bottom of the main settings page). Follow the verification steps to disconnect the fork, and you're all set — now follow the directions as before.
 :::
 
 4. Download and install GitHub Desktop from [here](https://desktop.github.com).
