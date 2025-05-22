@@ -42,5 +42,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           # This is the branch where the docs are deployed to
-          branch: gh-pages
+          branch: gh-pages # The website is being built on a branch called gh-pages
           folder: docs/.vuepress/dist
